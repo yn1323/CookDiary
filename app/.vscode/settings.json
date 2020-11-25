@@ -1,0 +1,36 @@
+{
+  "files.insertFinalNewline": true,
+  "files.trimTrailingWhitespace": true,
+  "typescript.tsserver.trace": "verbose",
+  "[markdown]": {
+    "files.trimTrailingWhitespace": false
+  },
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true,
+    "codeActionsOnSaveTimeout": true,
+    "editor.codeActionsOnSaveTimeout": true,
+    "source.fixAll.stylelint": true
+  },
+  "[javascriptreact]": {
+    "editor.formatOnSave": true,
+  },
+  "editor.formatOnSave": false,
+  "eslint.workingDirectories": [
+    {
+      "directory": "./app",
+      "changeProcessCWD": true
+    }
+  ],
+  "eslint.alwaysShowStatus": true,
+  // Monokai Extended for "console" color
+  "editor.semanticTokenColorCustomizations": {
+    "enabled": true,
+    "rules": {
+      "variable.defaultLibrary": "#66d9ef"
+    }
+  },
+  "stylelint.enable": true,
+  "css.validate": false,
+  "less.validate": false,
+  "scss.validate": false,
+}
