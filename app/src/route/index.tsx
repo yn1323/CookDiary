@@ -8,6 +8,7 @@ export default () => {
   return (
     <Switch>
       <Route exact path="/" component={Top} />
+      <Route exact path="./index.html" component={Top} />
 
       {/* {process.env.NODE_ENV === 'development' && (
         <Route exact path="/gallery" component={Gallery} />
