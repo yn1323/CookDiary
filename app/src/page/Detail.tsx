@@ -1,5 +1,5 @@
 import React from 'react'
 
 export default () => {
-  return <div>TOP</div>
+  return <div>Detail</div>
 }

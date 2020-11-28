@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react'
 import { useHistory, useLocation } from 'react-router-dom'
 
 import { BottomNavigation, BottomNavigationAction } from '@material-ui/core'
-import { Group, Settings } from '@material-ui/icons'
+import { Edit, LocalOffer, Group, Search, Settings } from '@material-ui/icons'
 
 import { useStyles } from 'src/constant'
 
@@ -12,31 +12,30 @@ interface Icon {
   path: string
 }
 
+const icons = [
+  { label: 'TOP', icon: <Group />, path: '/' },
+  { label: 'タグ', icon: <LocalOffer />, path: '/tag' },
+  { label: '編集', icon: <Edit />, path: '/edit' },
+  { label: '検索', icon: <Search />, path: '/search' },
+]
+
 export default () => {
   const history = useHistory()
   const location = useLocation()
-  const paths = [
-    { path: '/', index: 0 },
-    // { path: '/horse', index: 1 },
-    // { path: '/race', index: 2 },
-    // { path: '/config', index: 3 },
-  ]
-  const [scene, setScene] = useState(
-    paths.find(v => v.path === location.pathname)?.index || 0
+
+  const paths = useMemo(
+    () => icons.map(({ path }, i) => ({ path, index: i })),
+    []
   )
+  const currentSceneIndex = () =>
+    paths.find(v => v.path === location.pathname)?.index || 0
+  const [scene, setScene] = useState(currentSceneIndex())
   const classes = useStyles()
 
   // ナビゲーションのハイライト変更
   useEffect(() => {
-    setScene(paths.find(v => v.path === location.pathname)?.index || 0)
+    setScene(currentSceneIndex())
   }, [location.pathname])
-
-  const icons: Icon[] = useMemo(() => {
-    return [
-      { label: '設定', icon: <Settings />, path: '/config' },
-      { label: 'TOP', icon: <Group />, path: '/' },
-    ]
-  }, [])
 
   const transition = (path: string) => history.push(path)
 
