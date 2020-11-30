@@ -1,6 +1,8 @@
-import { useEffect, useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { State } from 'src/type/state'
+
+import { LocalOffer, List, Search, Settings } from '@material-ui/icons'
 
 export const useFetch = async ({
   action = null as any,
@@ -23,3 +25,11 @@ export const usePrevious = (value: any) => {
   })
   return ref.current
 }
+
+export const useRouteIcons = () => [
+  { path: '/', icon: <List /> },
+  { path: './index.html', icon: <List /> },
+  { path: '/search', icon: <Search /> },
+  { path: '/tag', icon: <LocalOffer /> },
+  { path: '/config', icon: <Settings /> },
+]

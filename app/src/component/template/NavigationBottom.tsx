@@ -2,26 +2,22 @@ import React, { useEffect, useMemo, useState } from 'react'
 import { useHistory, useLocation } from 'react-router-dom'
 
 import { BottomNavigation, BottomNavigationAction } from '@material-ui/core'
-import { Edit, LocalOffer, List, Search, Settings } from '@material-ui/icons'
 
-import { useStyles } from 'src/constant'
-
-interface Icon {
-  label: string
-  icon: any
-  path: string
-}
-
-const icons = [
-  { label: 'TOP', icon: <List />, path: '/' },
-  { label: '検索', icon: <Search />, path: '/search' },
-  { label: 'タグ', icon: <LocalOffer />, path: '/tag' },
-  { label: '設定', icon: <Settings />, path: '/config' },
-]
+import { routes, useStyles } from 'src/constant'
+import { useRouteIcons } from 'src/helper'
 
 export default () => {
   const history = useHistory()
   const location = useLocation()
+  const routeIcons = useRouteIcons()
+
+  const icons = routes
+    .filter(v => v.showBtmNav)
+    .map(({ title, path }) => ({
+      title,
+      icon: routeIcons?.find(v => v.path === path)?.icon || <></>,
+      path,
+    }))
 
   const paths = useMemo(
     () => icons.map(({ path }, i) => ({ path, index: i })),
@@ -41,10 +37,10 @@ export default () => {
 
   return (
     <BottomNavigation value={scene} className={classes.stickBottom} showLabels>
-      {icons.map(({ label, icon, path }: Icon, i: number) => (
+      {icons.map(({ title, icon, path }, i: number) => (
         <BottomNavigationAction
           key={i}
-          // label={label}
+          // label={title}
           icon={icon}
           onClick={() => transition(path)}
         />

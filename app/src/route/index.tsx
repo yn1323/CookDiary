@@ -1,24 +1,16 @@
 import React, { lazy } from 'react'
 import { Route, Switch } from 'react-router-dom'
 
-const List = lazy(() => import('src/page/List'))
-const Detail = lazy(() => import('src/page/Detail'))
-const Edit = lazy(() => import('src/page/Edit'))
-const Search = lazy(() => import('src/page/Search'))
-const Tag = lazy(() => import('src/page/Tag'))
-const Config = lazy(() => import('src/page/Config'))
+import { routes } from 'src/constant'
+
 const NotFound = lazy(() => import('src/page/404'))
 
 export default () => {
   return (
     <Switch>
-      <Route exact path="/" component={List} />
-      <Route exact path="./index.html" component={List} />
-      <Route exact path="/detail" component={Detail} />
-      <Route exact path="/edit" component={Edit} />
-      <Route exact path="/search" component={Search} />
-      <Route exact path="/tag" component={Tag} />
-      <Route exact path="/config" component={Config} />
+      {routes.map(({ component, path }) => (
+        <Route key={path} exact path={path} component={component} />
+      ))}
 
       {/* {process.env.NODE_ENV === 'development' && (
         <Route exact path="/gallery" component={Gallery} />
