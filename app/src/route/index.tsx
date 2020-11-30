@@ -6,6 +6,7 @@ const Detail = lazy(() => import('src/page/Detail'))
 const Edit = lazy(() => import('src/page/Edit'))
 const Search = lazy(() => import('src/page/Search'))
 const Tag = lazy(() => import('src/page/Tag'))
+const Config = lazy(() => import('src/page/Config'))
 const NotFound = lazy(() => import('src/page/404'))
 
 export default () => {
@@ -17,6 +18,7 @@ export default () => {
       <Route exact path="/edit" component={Edit} />
       <Route exact path="/search" component={Search} />
       <Route exact path="/tag" component={Tag} />
+      <Route exact path="/config" component={Config} />
 
       {/* {process.env.NODE_ENV === 'development' && (
         <Route exact path="/gallery" component={Gallery} />

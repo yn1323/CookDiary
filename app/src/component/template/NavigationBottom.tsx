@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react'
 import { useHistory, useLocation } from 'react-router-dom'
 
 import { BottomNavigation, BottomNavigationAction } from '@material-ui/core'
-import { Edit, LocalOffer, Group, Search, Settings } from '@material-ui/icons'
+import { Edit, LocalOffer, List, Search, Settings } from '@material-ui/icons'
 
 import { useStyles } from 'src/constant'
 
@@ -13,10 +13,10 @@ interface Icon {
 }
 
 const icons = [
-  { label: 'TOP', icon: <Group />, path: '/' },
-  { label: 'タグ', icon: <LocalOffer />, path: '/tag' },
-  { label: '編集', icon: <Edit />, path: '/edit' },
+  { label: 'TOP', icon: <List />, path: '/' },
   { label: '検索', icon: <Search />, path: '/search' },
+  { label: 'タグ', icon: <LocalOffer />, path: '/tag' },
+  { label: '設定', icon: <Settings />, path: '/config' },
 ]
 
 export default () => {
@@ -44,7 +44,7 @@ export default () => {
       {icons.map(({ label, icon, path }: Icon, i: number) => (
         <BottomNavigationAction
           key={i}
-          label={label}
+          // label={label}
           icon={icon}
           onClick={() => transition(path)}
         />
