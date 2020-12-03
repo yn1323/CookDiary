@@ -13,13 +13,13 @@ export const routes = [
     path: '/',
     title: 'リスト',
     component: ListComponent,
-    showBtmNav: false,
+    showBtmNav: true,
   },
   {
     path: './index.html',
     title: 'リスト',
     component: ListComponent,
-    showBtmNav: true,
+    showBtmNav: false,
   },
   {
     path: '/detail',
