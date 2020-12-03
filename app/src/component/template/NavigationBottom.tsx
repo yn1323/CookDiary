@@ -3,7 +3,7 @@ import { useHistory, useLocation } from 'react-router-dom'
 
 import { BottomNavigation, BottomNavigationAction } from '@material-ui/core'
 
-import { routes, useStyles } from 'src/constant'
+import { routes, useCommonStyles } from 'src/constant'
 import { useRouteIcons } from 'src/helper'
 
 export default () => {
@@ -26,7 +26,7 @@ export default () => {
   const currentSceneIndex = () =>
     paths.find(v => v.path === location.pathname)?.index || 0
   const [scene, setScene] = useState(currentSceneIndex())
-  const classes = useStyles()
+  const classes = useCommonStyles()
 
   // ナビゲーションのハイライト変更
   useEffect(() => {

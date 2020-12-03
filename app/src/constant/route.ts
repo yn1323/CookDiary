@@ -1,5 +1,4 @@
 import { lazy } from 'react'
-import { LocalOffer, List, Search, Settings } from '@material-ui/icons'
 
 const ListComponent = lazy(() => import('src/page/List'))
 const DetailComponent = lazy(() => import('src/page/Detail'))

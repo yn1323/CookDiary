@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core'
 
-export const useStyles: any = makeStyles({
+export const useCommonStyles: any = makeStyles({
   stickTop: {
     width: '100%',
     position: 'fixed',
@@ -20,5 +20,9 @@ export const useStyles: any = makeStyles({
     width: '100%',
     position: 'fixed',
     bottom: 56,
+  },
+  alignRight: {
+    display: 'flex',
+    justifyContent: 'flex-end',
   },
 })
