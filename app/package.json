@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "homepage": ".",
+  "typings": "common.d.ts",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build --mode production",

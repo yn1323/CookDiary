@@ -25,4 +25,7 @@ export const useCommonStyles: any = makeStyles({
     display: 'flex',
     justifyContent: 'flex-end',
   },
+  cursorPointer: {
+    cursor: 'pointer',
+  },
 })
