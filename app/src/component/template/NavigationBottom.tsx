@@ -6,7 +6,7 @@ import { BottomNavigation, BottomNavigationAction } from '@material-ui/core'
 import { routes, useCommonStyles } from 'src/constant'
 import { useRouteIcons } from 'src/helper'
 
-export default () => {
+export const NavigationBottom = () => {
   const history = useHistory()
   const location = useLocation()
   const routeIcons = useRouteIcons()
@@ -48,3 +48,5 @@ export default () => {
     </BottomNavigation>
   )
 }
+
+export default NavigationBottom

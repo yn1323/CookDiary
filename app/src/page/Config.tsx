@@ -1,5 +1,7 @@
 import React from 'react'
 
-export default () => {
+export const Config = () => {
   return <div>Config</div>
 }
+
+export default Config

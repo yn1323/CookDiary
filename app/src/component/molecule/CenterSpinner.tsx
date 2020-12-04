@@ -5,7 +5,7 @@ import Align from 'src/component/template/Align'
 interface Props {
   text?: string
 }
-export default ({ text = '' }: Props) => {
+export const CenterSpinner = ({ text = '' }: Props) => {
   return (
     <Align direction="column">
       <>
@@ -17,3 +17,5 @@ export default ({ text = '' }: Props) => {
     </Align>
   )
 }
+
+export default CenterSpinner

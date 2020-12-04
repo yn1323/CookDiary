@@ -1,9 +1,9 @@
 import React from 'react'
 import { Box } from '@material-ui/core'
 
-import Card from 'src/component/organism/Card'
+import DishCard from 'src/component/organism/DishCard'
 
-export default () => {
+export const List = () => {
   const data = [
     {
       url: 'https://material-ui.com/static/images/cards/paella.jpg',
@@ -17,8 +17,10 @@ export default () => {
   return (
     <Box>
       {data.map(({ url, text, date }, i) => (
-        <Card url={url} text={text} date={date} key={i} />
+        <DishCard url={url} text={text} date={date} key={i} />
       ))}
     </Box>
   )
 }
+
+export default List

@@ -1,5 +1,7 @@
 import React from 'react'
 
-export default () => {
+export const Edit = () => {
   return <div>Edit</div>
 }
+
+export default Edit

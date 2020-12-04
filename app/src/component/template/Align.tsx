@@ -14,7 +14,7 @@ interface Props {
   alighItems?: 'stretch' | 'flex-start' | 'flex-end' | 'center' | 'baseline'
 }
 
-export default ({
+export const Align = ({
   children,
   direction = 'row',
   justify = 'center',
@@ -33,3 +33,5 @@ export default ({
     </Grid>
   )
 }
+
+export default Align

@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-export default ({ url, text, date }: Props) => {
+export const DishCard = ({ url, text, date }: Props) => {
   const classes = useStyles()
   const commonCl = useCommonStyles()
 
@@ -68,3 +68,5 @@ export default ({ url, text, date }: Props) => {
     </Card>
   )
 }
+
+export default DishCard

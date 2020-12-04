@@ -3,7 +3,7 @@ import { AppBar, Tabs, Tab } from '@material-ui/core'
 
 import { useCommonStyles } from 'src/constant'
 
-export default () => {
+export const NavigationTop = () => {
   const classes = useCommonStyles()
 
   return (
@@ -29,3 +29,5 @@ export default () => {
     </AppBar>
   )
 }
+
+export default NavigationTop
