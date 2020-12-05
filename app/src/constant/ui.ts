@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core'
 
-export const useCommonStyles: any = makeStyles({
+const styles: any = {
   stickTop: {
     width: '100%',
     position: 'fixed',
@@ -28,4 +28,31 @@ export const useCommonStyles: any = makeStyles({
   cursorPointer: {
     cursor: 'pointer',
   },
-})
+  center: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  ellipsis: {
+    overflow: 'hidden',
+    whiteSpace: 'nowrap',
+    textOverflow: 'ellipsis',
+  },
+}
+
+const custom: any = {
+  centerV: {
+    ...styles.center,
+    flexDirection: 'column',
+  },
+  centerVH: {
+    ...styles.center,
+    alignItems: 'center',
+  },
+  alignLeft: {
+    ...styles.alignRight,
+    justifyContent: 'flex-start',
+  },
+}
+
+export const useCommonStyles: any = makeStyles({ ...styles, ...custom })

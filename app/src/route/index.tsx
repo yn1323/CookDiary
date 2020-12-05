@@ -5,7 +5,7 @@ import { routes } from 'src/constant'
 
 const NotFound = lazy(() => import('src/page/404'))
 
-export default () => {
+const Router = () => {
   return (
     <Switch>
       {routes.map(({ component, path }) => (
@@ -19,3 +19,5 @@ export default () => {
     </Switch>
   )
 }
+
+export default Router

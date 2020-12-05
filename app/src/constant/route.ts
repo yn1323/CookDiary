@@ -34,12 +34,12 @@ export const routes = [
     icon: null,
     showBtmNav: false,
   },
-  {
-    path: '/search',
-    title: '検索',
-    component: SearchComponent,
-    showBtmNav: true,
-  },
+  // {
+  //   path: '/search',
+  //   title: '検索',
+  //   component: SearchComponent,
+  //   showBtmNav: true,
+  // },
   {
     path: '/tag',
     title: 'タグ',

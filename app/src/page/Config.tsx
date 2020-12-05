@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const Config = () => {
+const Config = () => {
   return <div>Config</div>
 }
 

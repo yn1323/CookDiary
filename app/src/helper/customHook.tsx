@@ -1,8 +1,8 @@
 import React, { useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { State } from 'src/type/state'
 
 import { LocalOffer, List, Search, Settings } from '@material-ui/icons'
+import { State } from 'Store'
 
 export const useFetch = async ({
   action = null as any,
@@ -33,3 +33,14 @@ export const useRouteIcons = () => [
   { path: '/tag', icon: <LocalOffer /> },
   { path: '/config', icon: <Settings /> },
 ]
+
+export const useSearchCondition = () => {
+  const { search } = useSelector((state: State) => state)
+  return search
+}
+
+export const useHasSearchCondition = () => {
+  const conditions: any = useSearchCondition()
+  const keys = Object.keys(conditions)
+  return keys.some(key => conditions[key])
+}
