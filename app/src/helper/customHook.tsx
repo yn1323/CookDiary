@@ -4,7 +4,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { LocalOffer, List, Search, Settings } from '@material-ui/icons'
 import { Component, State, Search as SearchType } from 'Store'
 
-import { toggleDrawer } from 'src/store/component'
+import { setDialog, showDialog, toggleDrawer } from 'src/store/component'
+import { setSearch } from 'src/store/search'
 
 export const useFetch = async ({
   action = null as any,
@@ -41,6 +42,24 @@ export const useSearchCondition = () => {
   return search
 }
 
+export const useSearch = () => {
+  const { search = {} as SearchType } = useSelector((state: State) => state)
+  const dispatch = useDispatch()
+  return {
+    keyword: search.keyword,
+    dateRange: search.dateRange,
+    tag: search.tag,
+    setSearch: ({ keyword, dateRange, tag }: any) =>
+      dispatch(
+        setSearch({
+          keyword: keyword ?? '',
+          dateRange: dateRange ?? '',
+          tag: tag ?? 0,
+        })
+      ),
+  }
+}
+
 export const useHasSearchCondition = () => {
   const conditions: any = useSearchCondition()
   const keys = Object.keys(conditions)
@@ -51,8 +70,26 @@ export const useHasSearchCondition = () => {
 export const useDrawer = () => {
   const { component = {} as Component } = useSelector((state: State) => state)
   const dispatch = useDispatch()
+  const { isDrawerOpen } = component
   return {
-    isDrawerOpen: component.isDrawerOpen,
+    isDrawerOpen,
     setIsDrawerOpen: () => dispatch(toggleDrawer()),
+  }
+}
+
+export const useDialog = () => {
+  const { component = {} as Component } = useSelector((state: State) => state)
+  const dispatch = useDispatch()
+  const { isDialogOpen } = component
+  return {
+    isDialogOpen,
+    title: component.dialog.title,
+    component: component.dialog.component,
+    setIsDialogOpen: (open: boolean) =>
+      dispatch(showDialog({ isDialogOpen: open })),
+    setDialogComponent: ({
+      title = '' as string,
+      component = (<></>) as any,
+    }) => dispatch(setDialog({ dialog: { title, component } })),
   }
 }

@@ -1,9 +1,10 @@
 import React from 'react'
 import { makeStyles, createStyles } from '@material-ui/core/styles'
-import { AppBar, Toolbar, IconButton, Typography } from '@material-ui/core'
+import { AppBar, Toolbar, IconButton } from '@material-ui/core'
 
 import { Search, Add, Menu as MenuIcon } from '@material-ui/icons'
-import { useDrawer } from 'src/helper'
+import { useDialog, useDrawer } from 'src/helper'
+import SearchCondition from '../organism/SearchCondition'
 
 const useStyles = makeStyles(theme =>
   createStyles({
@@ -25,6 +26,16 @@ const useStyles = makeStyles(theme =>
 const NavigationHeader = () => {
   const classes = useStyles()
   const { setIsDrawerOpen } = useDrawer()
+  const { setIsDialogOpen, setDialogComponent } = useDialog()
+
+  const showSearchDialog = () => {
+    setDialogComponent({
+      title: '検索',
+      component: <SearchCondition />,
+    })
+    setIsDialogOpen(true)
+  }
+
   return (
     <div className={classes.grow}>
       <AppBar position="static">
@@ -37,12 +48,9 @@ const NavigationHeader = () => {
           >
             <MenuIcon />
           </IconButton>
-          {/* <Typography className={classes.title} variant="h6" noWrap>
-            Material-UI
-          </Typography> */}
           <div className={classes.grow} />
           <div className={classes.sectionIcon}>
-            <IconButton color="inherit">
+            <IconButton color="inherit" onClick={() => showSearchDialog()}>
               <Search />
             </IconButton>
             <IconButton color="inherit">

@@ -8,6 +8,7 @@ import NavigationTop from 'src/component/template/NavigationTop'
 import NavigationHeader from 'src/component/template/NavigationHeader'
 import NavigationBottom from 'src/component/template/NavigationBottom'
 import LeftDrawer from 'src/component/template/LeftDrawer'
+import DialogTemplate from 'src/component/template/Dialog'
 
 const Index = () => {
   // buildすると、なぜかRoute内にpyが付与されるので、分岐を追加
@@ -24,6 +25,7 @@ const Index = () => {
       </Box>
       {/* <NavigationBottom /> */}
       <LeftDrawer />
+      <DialogTemplate />
     </>
   )
 }

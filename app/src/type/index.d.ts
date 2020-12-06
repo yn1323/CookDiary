@@ -19,5 +19,11 @@ declare module 'Store' {
   }
   export interface Component {
     isDrawerOpen: boolean
+    isDialogOpen: boolean
+    dialog: Dialog
+  }
+  export interface Dialog {
+    title: string
+    component: any
   }
 }

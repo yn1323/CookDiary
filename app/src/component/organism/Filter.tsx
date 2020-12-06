@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Button, makeStyles, Typography } from '@material-ui/core'
+import { Box, makeStyles, Typography } from '@material-ui/core'
 import { Search, DateRange, LocalOffer, Label } from '@material-ui/icons'
 
 import { useCommonStyles } from 'src/constant'

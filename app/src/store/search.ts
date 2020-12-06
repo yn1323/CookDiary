@@ -18,10 +18,10 @@ const State = createSlice({
   initialState,
   reducers: {
     reset: () => ({ ...defaultVal }),
-    update: (state: StateType, { payload }) => ({ ...state, ...payload }),
+    setSearch: (state: StateType, { payload }) => ({ ...state, ...payload }),
   },
 })
 
 export default State.reducer
 
-export const { reset, update } = State.actions
+export const { reset, setSearch } = State.actions

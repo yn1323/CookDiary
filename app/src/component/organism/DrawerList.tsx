@@ -8,7 +8,7 @@ import {
   ListItemText,
   Divider,
 } from '@material-ui/core'
-import { Settings, HelpOutline, LabelImportant } from '@material-ui/icons'
+import { Settings, HelpOutline } from '@material-ui/icons'
 
 interface LabelList {
   label: string
