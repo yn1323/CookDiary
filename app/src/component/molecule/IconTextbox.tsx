@@ -1,8 +1,6 @@
 import React from 'react'
 import { Grid, TextField } from '@material-ui/core'
 
-import { Search } from '@material-ui/icons'
-
 interface Props {
   defaultVal: string
   setter: any

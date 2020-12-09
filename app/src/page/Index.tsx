@@ -18,7 +18,7 @@ const Index = () => {
     <>
       {/* <NavigationTop /> */}
       <NavigationHeader />
-      <Box m={1} py={0}>
+      <Box m={1} pt={padding}>
         <Suspense fallback={<Spinner />}>
           <Route />
         </Suspense>

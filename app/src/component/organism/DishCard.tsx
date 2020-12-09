@@ -1,7 +1,7 @@
 import React from 'react'
 import { Grid } from '@material-ui/core'
 
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
+import { makeStyles, createStyles } from '@material-ui/core/styles'
 import { Card, CardMedia, CardContent, CardActions } from '@material-ui/core'
 import Typography from '@material-ui/core/Typography'
 import { Favorite, Restaurant } from '@material-ui/icons'
@@ -13,12 +13,13 @@ interface Props {
   date: string
 }
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     root: {
       width: '100%',
       maxHeight: 150,
-      marginBottom: 10,
+      marginTop: 5,
+      marginBottom: 5,
     },
     media: {
       height: '100%',

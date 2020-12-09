@@ -1,10 +1,11 @@
 import React from 'react'
+import { useHistory } from 'react-router-dom'
 import { makeStyles, createStyles } from '@material-ui/core/styles'
 import { AppBar, Toolbar, IconButton } from '@material-ui/core'
 
 import { Search, Add, Menu as MenuIcon } from '@material-ui/icons'
 import { useDialog, useDrawer } from 'src/helper'
-import SearchCondition from '../organism/SearchCondition'
+import { useCommonStyles } from 'src/constant'
 
 const useStyles = makeStyles(theme =>
   createStyles({
@@ -25,41 +26,43 @@ const useStyles = makeStyles(theme =>
 
 const NavigationHeader = () => {
   const classes = useStyles()
+  const commonCl = useCommonStyles()
+  const history = useHistory()
   const { setIsDrawerOpen } = useDrawer()
-  const { setIsDialogOpen, setDialogComponent } = useDialog()
+  // 今度使う
+  // const { setIsDialogOpen, setDialogComponent } = useDialog()
 
   const showSearchDialog = () => {
-    setDialogComponent({
-      title: '検索',
-      component: <SearchCondition />,
-    })
-    setIsDialogOpen(true)
+    history.push('/tag')
+    // setDialogComponent({
+    //   title: '検索',
+    //   component: <SearchCondition />,
+    // })
+    // setIsDialogOpen(true)
   }
 
   return (
-    <div className={classes.grow}>
-      <AppBar position="static">
-        <Toolbar>
-          <IconButton
-            edge="start"
-            color="inherit"
-            aria-label="open drawer"
-            onClick={() => setIsDrawerOpen()}
-          >
-            <MenuIcon />
+    <AppBar position="fixed">
+      <Toolbar>
+        <IconButton
+          edge="start"
+          color="inherit"
+          aria-label="open drawer"
+          onClick={() => setIsDrawerOpen()}
+        >
+          <MenuIcon />
+        </IconButton>
+        <div className={classes.grow} />
+        <div className={classes.sectionIcon}>
+          <IconButton color="inherit" onClick={() => showSearchDialog()}>
+            <Search />
           </IconButton>
-          <div className={classes.grow} />
-          <div className={classes.sectionIcon}>
-            <IconButton color="inherit" onClick={() => showSearchDialog()}>
-              <Search />
-            </IconButton>
-            <IconButton color="inherit">
-              <Add />
-            </IconButton>
-          </div>
-        </Toolbar>
-      </AppBar>
-    </div>
+          <IconButton color="inherit">
+            <Add />
+          </IconButton>
+        </div>
+      </Toolbar>
+    </AppBar>
   )
 }
 
