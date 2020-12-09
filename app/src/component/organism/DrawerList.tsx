@@ -8,7 +8,7 @@ import {
   ListItemText,
   Divider,
 } from '@material-ui/core'
-import { Settings, HelpOutline } from '@material-ui/icons'
+import { Home, Settings, HelpOutline } from '@material-ui/icons'
 
 interface LabelList {
   label: string
@@ -24,7 +24,10 @@ const useStyles = makeStyles({
 const DrawerList = () => {
   const classes = useStyles()
   const list1: LabelList[] = [{ label: 'ヘルプ', icon: <HelpOutline /> }]
-  const list2: LabelList[] = [{ label: '設定', icon: <Settings /> }]
+  const list2: LabelList[] = [
+    { label: 'ホーム', icon: <Home /> },
+    { label: '設定', icon: <Settings /> },
+  ]
 
   const renderList = (labelList: LabelList[]) =>
     labelList.map(({ label, icon }) => (
