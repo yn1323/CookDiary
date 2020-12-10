@@ -3,9 +3,15 @@ import { useHistory } from 'react-router-dom'
 import { makeStyles, createStyles } from '@material-ui/core/styles'
 import { AppBar, Toolbar, IconButton } from '@material-ui/core'
 
-import { Search, Add, Menu as MenuIcon } from '@material-ui/icons'
+import {
+  Search,
+  Add,
+  Menu as MenuIcon,
+  Edit,
+  Details,
+} from '@material-ui/icons'
 import { useDialog, useDrawer } from 'src/helper'
-import { useCommonStyles } from 'src/constant'
+import { isProduction, useCommonStyles } from 'src/constant'
 
 const useStyles = makeStyles(theme =>
   createStyles({
@@ -54,10 +60,27 @@ const NavigationHeader = () => {
         </IconButton>
         <div className={classes.grow} />
         <div className={classes.sectionIcon}>
+          {/*  Edit */}
+          {!isProduction && (
+            <IconButton
+              color="inherit"
+              onClick={() => history.push('/edit/test')}
+            >
+              <Edit />
+            </IconButton>
+          )}
+
+          {/*  Detail */}
+          {!isProduction && (
+            <IconButton color="inherit" onClick={() => history.push('/test')}>
+              <Details />
+            </IconButton>
+          )}
+
           <IconButton color="inherit" onClick={() => showSearchDialog()}>
             <Search />
           </IconButton>
-          <IconButton color="inherit">
+          <IconButton color="inherit" onClick={() => history.push('/new')}>
             <Add />
           </IconButton>
         </div>

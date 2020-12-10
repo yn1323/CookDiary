@@ -32,7 +32,7 @@ const DrawerList = () => {
   ]
   const list2: LabelList[] = [
     { label: 'ホーム', icon: <Home />, path: '/' },
-    { label: '設定', icon: <Settings />, path: '/' },
+    { label: '設定', icon: <Settings />, path: '/config' },
   ]
   const transition = (path: string) => {
     history.push(path)

@@ -20,20 +20,6 @@ export const routes = [
     component: ListComponent,
     showBtmNav: false,
   },
-  {
-    path: '/detail',
-    title: '詳細',
-    component: DetailComponent,
-    icon: null,
-    showBtmNav: false,
-  },
-  {
-    path: '/edit',
-    title: '編集',
-    component: EditComponent,
-    icon: null,
-    showBtmNav: false,
-  },
   // {
   //   path: '/search',
   //   title: '検索',
@@ -51,5 +37,26 @@ export const routes = [
     title: '設定',
     component: ConfigComponent,
     showBtmNav: true,
+  },
+  {
+    path: '/new',
+    title: '新規追加',
+    component: EditComponent,
+    icon: null,
+    showBtmNav: false,
+  },
+  {
+    path: '/edit/:id',
+    title: '編集',
+    component: EditComponent,
+    icon: null,
+    showBtmNav: false,
+  },
+  {
+    path: '/:id',
+    title: '詳細',
+    component: DetailComponent,
+    icon: null,
+    showBtmNav: false,
   },
 ]
