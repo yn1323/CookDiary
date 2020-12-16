@@ -1,9 +1,8 @@
 import React from 'react'
 import TagList from 'src/component/template/Taglist'
-import { tags } from 'src/constant'
 
 const Tag = () => {
-  return <TagList tags={tags} />
+  return <TagList dispatch={(tag: number) => console.log(tag)} />
 }
 
 export default Tag

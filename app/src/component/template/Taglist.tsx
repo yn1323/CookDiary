@@ -8,11 +8,12 @@ import {
   ListItemText,
 } from '@material-ui/core'
 import { makeStyles, createStyles } from '@material-ui/core/styles'
+import { tags } from 'src/constant'
 import { Tag } from 'Common'
 import { ArrowForwardIos } from '@material-ui/icons/'
 
 interface Props {
-  tags: Tag[]
+  dispatch: (tag: number) => void
 }
 
 const useStyles = makeStyles(theme =>
@@ -33,13 +34,18 @@ const useStyles = makeStyles(theme =>
   })
 )
 
-export const TagList = ({ tags }: Props) => {
+export const TagList = ({ dispatch }: Props) => {
   const classes = useStyles()
   return (
     <List dense className={classes.root}>
-      {tags.map(({ label, img, action }) => (
+      {tags.map(({ label, img, index, action }) => (
         <>
-          <ListItem key={label} button className={classes.listitem}>
+          <ListItem
+            key={index}
+            button
+            className={classes.listitem}
+            onClick={() => dispatch(index)}
+          >
             <ListItemAvatar>
               <Avatar alt={label} src={img} variant="square" />
             </ListItemAvatar>
