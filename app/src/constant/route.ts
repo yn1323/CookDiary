@@ -5,6 +5,7 @@ const DetailComponent = lazy(() => import('src/page/Detail'))
 const EditComponent = lazy(() => import('src/page/Edit'))
 const SearchComponent = lazy(() => import('src/page/Search'))
 const TagComponent = lazy(() => import('src/page/Tag'))
+const TagSelect = lazy(() => import('src/page/TagSelect'))
 const ConfigComponent = lazy(() => import('src/page/Config'))
 
 export const routes = [
@@ -42,6 +43,13 @@ export const routes = [
     path: '/new',
     title: '新規追加',
     component: EditComponent,
+    icon: null,
+    showBtmNav: false,
+  },
+  {
+    path: '/tagSelect',
+    title: 'タグ選択',
+    component: TagSelect,
     icon: null,
     showBtmNav: false,
   },

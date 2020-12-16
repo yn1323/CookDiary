@@ -11,6 +11,7 @@ declare module 'Store' {
   export interface State {
     search: Search
     component: Component
+    post: Post
   }
   export interface Search {
     keyword: string
@@ -25,5 +26,15 @@ declare module 'Store' {
   export interface Dialog {
     title: string
     component: any
+  }
+  export interface Post {
+    id: string
+    title: string
+    tag: string
+    date: string
+    image: string
+    ingredient: string
+    step: string
+    tip: string
   }
 }

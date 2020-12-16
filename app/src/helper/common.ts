@@ -78,3 +78,7 @@ export const tagNumToStr = (tagNum: number) => {
   }
   return tags.find(({ index }) => index === tagNum)?.label
 }
+
+export const tagActionToStr = (tagAction: string) => {
+  return tags.find(({ action }) => action === tagAction)?.label || ''
+}

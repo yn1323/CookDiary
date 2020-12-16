@@ -38,6 +38,9 @@ const styles: any = {
     whiteSpace: 'nowrap',
     textOverflow: 'ellipsis',
   },
+  width100: {
+    width: '100%',
+  },
 }
 
 const custom: any = {

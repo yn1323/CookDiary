@@ -2,10 +2,11 @@ import React, { useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { LocalOffer, List, Search, Settings } from '@material-ui/icons'
-import { Component, State, Search as SearchType } from 'Store'
+import { Component, State, Search as SearchType, Post } from 'Store'
 
 import { setDialog, showDialog, toggleDrawer } from 'src/store/component'
 import { setSearch } from 'src/store/search'
+import { setPost, resetPost } from 'src/store/post'
 
 export const useFetch = async ({
   action = null as any,
@@ -91,5 +92,16 @@ export const useDialog = () => {
       title = '' as string,
       component = (<></>) as any,
     }) => dispatch(setDialog({ dialog: { title, component } })),
+  }
+}
+
+export const usePost = () => {
+  const { post = {} as Post } = useSelector((state: State) => state)
+  const dispatch = useDispatch()
+
+  return {
+    post,
+    postDispatch: (obj: { [key: string]: any }) => dispatch(setPost(obj)),
+    resetPost: () => dispatch(resetPost()),
   }
 }

@@ -1,126 +1,119 @@
-import React, { useState } from 'react'
-import moment from 'moment-timezone'
-import {
-  Button,
-  Box,
-  Grid,
-  makeStyles,
-  Typography,
-  TextField,
-} from '@material-ui/core'
-import {
-  RestaurantMenu,
-  CameraAlt as Camera,
-  LocalOffer,
-  Edit as EditIcon,
-} from '@material-ui/icons'
+import React, { useEffect, useRef } from 'react'
+import { Button, Grid, makeStyles, TextFieldProps } from '@material-ui/core'
+import { RestaurantMenu } from '@material-ui/icons'
 
+import CurrentDate from 'src/component/atom/CurrentDate'
 import IconTextbox from 'src/component/molecule/IconTextbox'
+import TagSelectButton from 'src/component/molecule/TagSelectButton'
+import EditTextarea from 'src/component/molecule/EditTextarea'
+import ImgUpload from 'src/component/molecule/ImgUpload'
+
+import { useDialog, usePost } from 'src/helper'
+import { currentDate } from 'src/constant'
+import { useHistory } from 'react-router-dom'
 
 const useStyles = makeStyles({
-  photo: {
-    outline: '1px solid #ccc',
-    height: 200,
-    background: '#ddd',
-  },
-  cameraIcon: {
-    fontSize: 60,
-  },
-  width100: {
-    width: '100%',
-  },
-  tagButton: {
-    color: '#eee',
-  },
   dateWrapper: {
     height: '100%',
     display: 'flex',
     alignItems: 'center',
   },
+  tagButton: {
+    color: '#eee',
+  },
 })
 
 const Edit = () => {
   const classes = useStyles()
+  const history = useHistory()
   const spacing = 3
-  const [title, setTitle] = useState('')
+  const { setIsDialogOpen, setDialogComponent } = useDialog()
+  const { post, postDispatch, resetPost } = usePost()
+
+  // 初期化
+  useEffect(() => resetPost, [])
+
+  const title = useRef<TextFieldProps>(null)
+  const ingredient = useRef<TextFieldProps>(null)
+  const step = useRef<TextFieldProps>(null)
+  const tip = useRef<TextFieldProps>(null)
+
+  const hasValidateValue = (payload: any) => {
+    let errMsg = ''
+    if (!payload.title) {
+      errMsg += '料理名が未入力です。\n'
+    }
+    setDialogComponent({
+      title: 'エラー',
+      component: <>{errMsg}</>,
+    })
+    return !!errMsg
+  }
+
+  const register = () => {
+    const payload = {
+      title: title.current?.value,
+      tag: post.tag,
+      date: currentDate,
+      image: '',
+      ingredient: ingredient.current?.value,
+      step: step.current?.value,
+      tip: tip.current?.value,
+    }
+    if (hasValidateValue(payload)) {
+      setIsDialogOpen(true)
+      return
+    }
+    postDispatch(payload)
+    history.push('/')
+  }
+
   return (
     <Grid container spacing={spacing}>
       <Grid item xs={12}>
+        {/* タイトル */}
         <IconTextbox
-          setter={setTitle}
-          defaultVal="none"
+          inputRef={title}
           icon={<RestaurantMenu color="disabled" />}
           placeholder="料理名"
         ></IconTextbox>
       </Grid>
       <Grid item container xs={12} spacing={spacing} justify="space-between">
         <Grid item>
-          <Button
-            variant="contained"
-            color="secondary"
-            className={classes.tagButton}
-            startIcon={<LocalOffer />}
-          >
-            タグを選択
-          </Button>
+          {/* タグ選択 */}
+          <TagSelectButton />
         </Grid>
         <Grid item>
           <div className={classes.dateWrapper}>
-            <Typography variant="body1" color="textSecondary">
-              {`${moment().format('YYYY-MM-DD')}`}
-            </Typography>
+            {/* 日付 */}
+            <CurrentDate />
           </div>
         </Grid>
       </Grid>
       <Grid item xs={12}>
-        <Button className={classes.photo} fullWidth>
-          <Camera className={classes.cameraIcon} color="disabled" />
-        </Button>
+        {/* 画像アップロード */}
+        <ImgUpload />
       </Grid>
       <Grid item xs={12}>
-        <Typography variant="body2">材料</Typography>
-        <Grid item xs={12}>
-          <TextField
-            id="outlined-multiline-static"
-            multiline
-            rows={5}
-            defaultValue=""
-            placeholder="空でもOK"
-            variant="outlined"
-            className={classes.width100}
-          />
-        </Grid>
+        {/* 材料 */}
+        <EditTextarea title="材料" inputRef={ingredient} />
       </Grid>
       <Grid item xs={12}>
-        <Typography variant="body2">手順</Typography>
-        <Grid item xs={12}>
-          <TextField
-            id="outlined-multiline-static"
-            multiline
-            rows={5}
-            defaultValue=""
-            placeholder="空でもOK"
-            variant="outlined"
-            className={classes.width100}
-          />
-        </Grid>
+        {/* 手順 */}
+        <EditTextarea title="手順" inputRef={step} />
       </Grid>
       <Grid item xs={12}>
-        <Typography variant="body2">コツ・ポイント</Typography>
-        <Grid item xs={12}>
-          <TextField
-            id="outlined-multiline-static"
-            multiline
-            rows={3}
-            defaultValue=""
-            placeholder="空でもOK"
-            variant="outlined"
-            className={classes.width100}
-          />
-        </Grid>
+        {/* コツポ */}
+        <EditTextarea title="コツ・ポイント" inputRef={tip} />
       </Grid>
       <Grid item xs={12}>
-        <Button fullWidth variant="contained">
+        <Button
+          className={classes.tagButton}
+          fullWidth
+          variant="contained"
+          color="secondary"
+          onClick={() => register()}
+        >
           登録
         </Button>
       </Grid>

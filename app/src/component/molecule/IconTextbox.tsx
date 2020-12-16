@@ -14,21 +14,26 @@ const useStyles = makeStyles({
 })
 
 interface Props {
-  defaultVal: string
-  setter: any
+  defaultVal?: string
+  inputRef: any
   icon: any
   placeholder?: string
 }
-const IconTextbox = ({ defaultVal, setter, icon, placeholder = '' }: Props) => {
+const IconTextbox = ({
+  defaultVal = '',
+  icon,
+  placeholder = '',
+  inputRef,
+}: Props) => {
   const classes = useStyles()
   return (
     <Grid container spacing={1} alignItems="flex-end" className={classes.root}>
       <Grid item>{icon}</Grid>
       <Grid item className={classes.textFieldGrid}>
         <TextField
+          inputRef={inputRef}
           label={placeholder}
           defaultValue={defaultVal}
-          onChange={e => setter(e.target.value)}
           className={classes.textField}
         />
       </Grid>

@@ -5,10 +5,12 @@ import logger from 'redux-logger'
 import { isProduction } from 'src/constant'
 import search from 'src/store/search'
 import component from 'src/store/component'
+import post from 'src/store/post'
 
 const reducer = combineReducers({
   search,
   component,
+  post,
 })
 
 // getDefaultMiddleware: serializeエラーがスマホで発生するため

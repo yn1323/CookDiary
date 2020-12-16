@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import {
   FormControl,
   FormHelperText,
@@ -24,20 +24,21 @@ const SearchCondition = () => {
   const { setIsDialogOpen } = useDialog()
   const { keyword, setSearch } = useSearch()
   const [text, setText] = useState(keyword)
-
+  const hoge = useRef('')
   const exec = () => {
-    setSearch({ keyword: text })
+    // setSearch({ keyword: text })
     setIsDialogOpen(false)
   }
 
   const classes = useStyles()
   return (
     <FormControl>
-      <IconTextbox
+      {/* <IconTextbox
+        inputRef={hoge}
         defaultVal={keyword}
         setter={setText}
         icon={<Search color="disabled" />}
-      ></IconTextbox>
+      ></IconTextbox> */}
       <Divider className={classes.divider} />
       <Button variant="contained" color="primary" onClick={() => exec()}>
         実行

@@ -15,6 +15,8 @@ import pot from 'src/asset/images/tag/pot.jpg'
 import noodle from 'src/asset/images/tag/noodle.jpg'
 import etc from 'src/asset/images/tag/etc.jpg'
 
+import moment from 'moment-timezone'
+
 import { Tag } from 'Common'
 
 // デバッグ用
@@ -40,3 +42,5 @@ export const tags: Tag[] = [
   { index: 15, label: '麺料理', img: noodle, action: 'noodle' },
   { index: 16, label: 'その他', img: etc, action: 'etc' },
 ]
+
+export const currentDate = moment().format('YYYY-MM-DD')

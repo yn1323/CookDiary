@@ -13,7 +13,7 @@ import { Tag } from 'Common'
 import { ArrowForwardIos } from '@material-ui/icons/'
 
 interface Props {
-  dispatch: (tag: number) => void
+  dispatch: (tag: any) => void
 }
 
 const useStyles = makeStyles(theme =>
@@ -44,7 +44,7 @@ export const TagList = ({ dispatch }: Props) => {
             key={index}
             button
             className={classes.listitem}
-            onClick={() => dispatch(index)}
+            onClick={() => dispatch(action)}
           >
             <ListItemAvatar>
               <Avatar alt={label} src={img} variant="square" />
