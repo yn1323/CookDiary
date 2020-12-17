@@ -53,13 +53,14 @@ const Edit = () => {
   const register = () => {
     const payload = {
       title: title.current?.value,
-      tag: post.tag,
+      tag: post.tag || 'etc',
       date: currentDate,
       image: '',
       ingredient: ingredient.current?.value,
       step: step.current?.value,
       tip: tip.current?.value,
     }
+    console.log(payload)
     if (hasValidateValue(payload)) {
       setIsDialogOpen(true)
       return
