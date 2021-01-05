@@ -2,12 +2,14 @@ import React from 'react'
 import { useHistory } from 'react-router-dom'
 import { makeStyles, createStyles } from '@material-ui/core/styles'
 import { AppBar, Toolbar, IconButton } from '@material-ui/core'
+import { useLocation } from 'react-router-dom'
 
 import {
   Search,
   Add,
   Menu as MenuIcon,
   Edit,
+  DeleteForever,
   Details,
 } from '@material-ui/icons'
 import { useDialog, useDrawer } from 'src/helper'
@@ -31,6 +33,8 @@ const useStyles = makeStyles(theme =>
 )
 
 const NavigationHeader = () => {
+  const { pathname } = useLocation()
+  const isDetail = pathname.includes('/detail/')
   const classes = useStyles()
   const commonCl = useCommonStyles()
   const history = useHistory()
@@ -45,6 +49,12 @@ const NavigationHeader = () => {
     //   component: <SearchCondition />,
     // })
     // setIsDialogOpen(true)
+  }
+  const deletePost = () => {
+    if (window?.confirm('本当に削除しますか？')) {
+      console.log('削除しました')
+      history.push('/')
+    }
   }
 
   return (
@@ -72,17 +82,39 @@ const NavigationHeader = () => {
 
           {/*  Detail */}
           {!isProduction && (
-            <IconButton color="inherit" onClick={() => history.push('/test')}>
+            <IconButton
+              color="inherit"
+              onClick={() => history.push('/detail/test')}
+            >
               <Details />
             </IconButton>
           )}
 
-          <IconButton color="inherit" onClick={() => showSearchDialog()}>
-            <Search />
-          </IconButton>
-          <IconButton color="inherit" onClick={() => history.push('/new')}>
-            <Add />
-          </IconButton>
+          {isDetail && (
+            <>
+              <IconButton
+                color="inherit"
+                onClick={() => history.push('/edit/test')}
+              >
+                <Edit />
+              </IconButton>
+
+              <IconButton color="inherit" onClick={deletePost}>
+                <DeleteForever />
+              </IconButton>
+            </>
+          )}
+
+          {!isDetail && (
+            <>
+              <IconButton color="inherit" onClick={() => showSearchDialog()}>
+                <Search />
+              </IconButton>
+              <IconButton color="inherit" onClick={() => history.push('/new')}>
+                <Add />
+              </IconButton>
+            </>
+          )}
         </div>
       </Toolbar>
     </AppBar>

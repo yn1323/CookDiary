@@ -47,7 +47,7 @@ export const DishCard = ({ url, text, date }: Props) => {
   const commonCl = useCommonStyles()
 
   return (
-    <Card className={classes.root} onClick={() => history.push('/test')}>
+    <Card className={classes.root} onClick={() => history.push('/detail/test')}>
       <Grid container direction="row">
         <Grid item xs={4}>
           <CardMedia className={classes.media} image={url} title="title" />

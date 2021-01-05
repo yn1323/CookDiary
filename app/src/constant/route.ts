@@ -61,7 +61,7 @@ export const routes = [
     showBtmNav: false,
   },
   {
-    path: '/:id',
+    path: '/detail/:id',
     title: '詳細',
     component: DetailComponent,
     icon: null,
