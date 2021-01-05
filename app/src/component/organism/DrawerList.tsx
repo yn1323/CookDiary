@@ -28,7 +28,7 @@ const DrawerList = () => {
   const classes = useStyles()
   const { setIsDrawerOpen } = useDrawer()
   const list1: LabelList[] = [
-    { label: 'ヘルプ', icon: <HelpOutline />, path: '/' },
+    // { label: 'ヘルプ', icon: <HelpOutline />, path: '/' },
   ]
   const list2: LabelList[] = [
     { label: 'ホーム', icon: <Home />, path: '/' },

@@ -2,7 +2,7 @@ import React from 'react'
 import { Button, makeStyles } from '@material-ui/core'
 import { LocalOffer } from '@material-ui/icons'
 import { tagActionToStr, useDialog, usePost } from 'src/helper'
-import TagList from '../template/Taglist'
+import TagList from 'src/component/template/Taglist'
 
 const useStyles = makeStyles({
   tagButton: {

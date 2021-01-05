@@ -60,7 +60,7 @@ const Edit = () => {
       step: step.current?.value,
       tip: tip.current?.value,
     }
-    console.log(payload)
+
     if (hasValidateValue(payload)) {
       setIsDialogOpen(true)
       return

@@ -1,8 +1,14 @@
 import React from 'react'
-import { Grid } from '@material-ui/core'
+import { useHistory } from 'react-router-dom'
 
 import { makeStyles, createStyles } from '@material-ui/core/styles'
-import { Card, CardMedia, CardContent, CardActions } from '@material-ui/core'
+import {
+  Card,
+  CardMedia,
+  CardContent,
+  CardActions,
+  Grid,
+} from '@material-ui/core'
 import Typography from '@material-ui/core/Typography'
 import { Favorite, Restaurant } from '@material-ui/icons'
 import { useCommonStyles } from 'src/constant'
@@ -20,6 +26,7 @@ const useStyles = makeStyles(() =>
       maxHeight: 150,
       marginTop: 5,
       marginBottom: 5,
+      cursor: 'pointer',
     },
     media: {
       height: '100%',
@@ -35,11 +42,12 @@ const useStyles = makeStyles(() =>
 )
 
 export const DishCard = ({ url, text, date }: Props) => {
+  const history = useHistory()
   const classes = useStyles()
   const commonCl = useCommonStyles()
 
   return (
-    <Card className={classes.root}>
+    <Card className={classes.root} onClick={() => history.push('/test')}>
       <Grid container direction="row">
         <Grid item xs={4}>
           <CardMedia className={classes.media} image={url} title="title" />

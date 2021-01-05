@@ -9,6 +9,7 @@ import NavigationHeader from 'src/component/template/NavigationHeader'
 import NavigationBottom from 'src/component/template/NavigationBottom'
 import LeftDrawer from 'src/component/template/LeftDrawer'
 import DialogTemplate from 'src/component/template/Dialog'
+// import SpeedDialComponent from 'src/component/organism/SpeedDial'
 
 const Index = () => {
   // buildすると、なぜかRoute内にpyが付与されるので、分岐を追加
@@ -26,6 +27,7 @@ const Index = () => {
       {/* <NavigationBottom /> */}
       <LeftDrawer />
       <DialogTemplate />
+      {/* <SpeedDialComponent /> */}
     </>
   )
 }
