@@ -16,14 +16,14 @@ const run = () => {
       primary: {
         main: '#ffb400',
         contrastText: '#eee',
-        dark: '#eee',
-        light: '#eee',
+        dark: 'green',
+        light: 'blue',
       },
       secondary: {
         main: '#2994b2',
-        contrastText: '#888',
-        dark: '#eee',
-        light: '#eee',
+        contrastText: '#666',
+        dark: '#097492',
+        light: 'blue',
       },
     },
   })

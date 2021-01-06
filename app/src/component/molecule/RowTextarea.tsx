@@ -1,6 +1,13 @@
-import { Grid, TextField, Typography } from '@material-ui/core'
 import React from 'react'
-import { useCommonStyles } from 'src/constant'
+import { Grid, Paper, Typography, makeStyles } from '@material-ui/core'
+
+const useStyles = makeStyles({
+  paper: {
+    padding: 10,
+    overflow: 'hidden',
+    wordWrap: 'break-word',
+  },
+})
 
 interface Props {
   title: string
@@ -8,20 +15,14 @@ interface Props {
 }
 
 const StableTextarea = ({ title, val }: Props) => {
-  const common = useCommonStyles()
+  const classes = useStyles()
   return (
     <>
-      <Typography variant="body2">{title}</Typography>
+      <Typography variant="body1">{title}</Typography>
       <Grid item xs={12}>
-        <TextField
-          disabled
-          id="outlined-multiline-static"
-          multiline
-          rows={5}
-          defaultValue={val}
-          variant="outlined"
-          className={common.width100}
-        />
+        <Paper className={classes.paper} elevation={0}>
+          <Typography variant="body2">{val}</Typography>
+        </Paper>
       </Grid>
     </>
   )

@@ -63,7 +63,12 @@ const Detail = () => {
       </Grid>
       <Grid item xs={12}>
         {/* コツポ */}
-        <RowTextarea title="コツ・ポイント" val={'コツポ'} />
+        <RowTextarea
+          title="コツ・ポイント"
+          val={
+            'コツaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbbbbbaaaaaaaaaaaaaaaaaaaポ'
+          }
+        />
       </Grid>
     </Grid>
   )
