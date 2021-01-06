@@ -1,10 +1,10 @@
 import React from 'react'
 import { AppBar, Tabs, Tab } from '@material-ui/core'
 
-import { useStyles } from 'src/constant'
+import { useCommonStyles } from 'src/constant'
 
-export default () => {
-  const classes = useStyles()
+export const NavigationTop = () => {
+  const classes = useCommonStyles()
 
   return (
     <AppBar position="static" className={classes.stickTop}>
@@ -29,3 +29,5 @@ export default () => {
     </AppBar>
   )
 }
+
+export default NavigationTop

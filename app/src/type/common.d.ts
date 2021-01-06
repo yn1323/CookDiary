@@ -9,5 +9,3 @@ declare module 'react-redux' {
   export function useDispatch<TDispatch = Dispatch<Actions>>(): TDispatch
   export function useStore<S = DefaultRootState>(): Store<S, Actions>
 }
-
-declare module 'common' {}

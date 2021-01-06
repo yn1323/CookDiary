@@ -1,3 +1,5 @@
+import { tags } from 'src/constant'
+
 // eslint-disable-next-line @typescript-eslint/ban-types
 export const deepcopy = (obj: {} | []) => JSON.parse(JSON.stringify(obj))
 
@@ -68,4 +70,15 @@ export const sortObjectedArray = (obj: any[], sortKey: string) => {
     return 0
   })
   return t
+}
+
+export const tagNumToStr = (tagNum: number) => {
+  if (tagNum + 1 > tags.length) {
+    return ''
+  }
+  return tags.find(({ index }) => index === tagNum)?.label
+}
+
+export const tagActionToStr = (tagAction: string) => {
+  return tags.find(({ action }) => action === tagAction)?.label || ''
 }
