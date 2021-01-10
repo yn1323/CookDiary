@@ -1,10 +1,12 @@
-import React, { useEffect } from 'react'
+import React from 'react'
+import { useSelector } from 'react-redux'
 import { Box } from '@material-ui/core'
 
 import DishCard from 'src/component/organism/DishCard'
 import Filter from 'src/component/organism/Filter'
-import { useHasSearchCondition } from 'src/helper'
-import { db } from 'src/constant'
+import { useFirestore, useHasSearchCondition } from 'src/helper'
+import { fetchList } from 'src/store/list'
+import { List as ListState, State } from 'Store'
 
 const List = () => {
   const data = [
@@ -17,20 +19,10 @@ const List = () => {
   for (let i = 0; i < 10; i++) {
     data.push({ ...data[0] })
   }
-  //データ取得
-  const getData = () => {
-    db.collection('users')
-      .get()
-      .then(query => {
-        const buff: any[] = []
-        query.forEach(doc => {
-          const data = doc.data()
-          buff.push([doc.id, data.name, data.age])
-        })
-        console.log(buff)
-      })
-  }
-  getData()
+
+  const { list = {} as ListState } = useSelector((state: State) => state)
+  useFirestore({ action: fetchList })
+
   const hasCondition = useHasSearchCondition()
   return (
     <Box>

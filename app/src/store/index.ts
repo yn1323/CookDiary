@@ -6,11 +6,15 @@ import { isProduction } from 'src/constant'
 import search from 'src/store/search'
 import component from 'src/store/component'
 import post from 'src/store/post'
+import user from 'src/store/user'
+import list from 'src/store/list'
 
 const reducer = combineReducers({
   search,
   component,
   post,
+  user,
+  list,
 })
 
 // getDefaultMiddleware: serializeエラーがスマホで発生するため

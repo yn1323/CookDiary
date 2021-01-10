@@ -8,8 +8,6 @@ const firebaseConfig = {
   projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
   storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
 }
-console.log(firebaseConfig)
-console.log(process.env)
-console.log(process.env.REACT_APP_FIREBASE_API_KEY)
+
 export const fb = firebase.initializeApp(firebaseConfig)
 export const db = fb.firestore()
