@@ -11,7 +11,9 @@ declare module 'Store' {
   export interface State {
     search: Search
     component: Component
+    user: User
     post: Post
+    list: List
   }
   export interface Search {
     keyword: string
@@ -23,9 +25,21 @@ declare module 'Store' {
     isDialogOpen: boolean
     dialog: Dialog
   }
+  export interface User {
+    id: string
+  }
   export interface Dialog {
     title: string
     component: any
+  }
+  export interface List {
+    isLoaded: boolean
+    result: {
+      id: string
+      img: string
+      title: string
+      date: string
+    }[]
   }
   export interface Post {
     id: string

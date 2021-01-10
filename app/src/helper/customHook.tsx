@@ -22,6 +22,19 @@ export const useFetch = async ({
   }, watch)
 }
 
+export const useFirestore = async ({
+  action = null as any,
+  watch = [] as any,
+}) => {
+  const dispatch = useDispatch()
+  useEffect(() => {
+    const f = async () => {
+      await dispatch(await action())
+    }
+    f()
+  }, watch)
+}
+
 export const usePrevious = (value: any) => {
   const ref = useRef()
   useEffect(() => {
