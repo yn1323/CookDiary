@@ -1,11 +1,10 @@
 import { useSelector } from 'react-redux'
 
-import { APP_NAME, LS_USER_ID } from 'src/constant'
+import { isProduction, APP_NAME, LS_USER_ID } from 'src/constant'
 
-import { db } from 'src/constant/firebase'
+import { db, DEV_COLLECTION } from 'src/constant/firebase'
 
 import { Post, State, User } from 'Store'
-import { encodeHtmlLineBreak } from './common'
 
 const generateFirebaseId = () => {
   return db.collection('_').doc().id
@@ -20,7 +19,7 @@ export const updateLSUserId = (id: string) => {
 }
 
 export const initializeUserId = () => {
-  const id = getId() || generateFirebaseId()
+  const id = isProduction ? getId() || generateFirebaseId() : DEV_COLLECTION
   updateLSUserId(id)
   return id
 }
@@ -31,9 +30,10 @@ const getUserId = () => {
 }
 
 export const getList = async () => {
-  const colRef = db.collection('users' || getUserId()).limit(10)
-  const snapshots = await colRef.get()
-  const docs = snapshots.docs.map(doc => doc.data())
+  const ref = db.collection(getId())
+  // const ref = db.collection(getId()).limit(10)
+  const snapshots = await ref.get()
+  const docs = snapshots.docs.map(doc => ({ id: doc.id, ...doc.data() }))
   return docs
 }
 

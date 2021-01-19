@@ -1,35 +1,42 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { Box } from '@material-ui/core'
 
 import DishCard from 'src/component/organism/DishCard'
 import Filter from 'src/component/organism/Filter'
-import { useFirestore, useHasSearchCondition } from 'src/helper'
+import { getList, useFirestore, useHasSearchCondition } from 'src/helper'
 import { fetchList } from 'src/store/list'
 import { List as ListState, State } from 'Store'
+import CenterSpinner from 'src/component/molecule/CenterSpinner'
 
 const List = () => {
-  const data = [
-    {
-      img: 'https://material-ui.com/static/images/cards/paella.jpg',
-      title: 'トマト煮込み',
-      date: '2020-11-05',
-    },
-  ]
-  for (let i = 0; i < 10; i++) {
-    data.push({ ...data[0] })
-  }
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(fetchList())
+  }, [])
 
   const { list = {} as ListState } = useSelector((state: State) => state)
-  useFirestore({ action: fetchList })
+  const { isLoaded, result } = list
+  // const hasCondition = useHasSearchCondition()
 
-  const hasCondition = useHasSearchCondition()
+  if (!isLoaded) {
+    return <CenterSpinner />
+  }
+
   return (
     <Box>
-      {hasCondition && <Filter />}
-      {data.map(({ img, title, date }, i) => (
-        <DishCard img={img} title={title} date={date} key={i} />
-      ))}
+      {/* {hasCondition && <Filter />} */}
+      {result
+        .filter(r => r.id)
+        .map(({ img, title, cookedDateList, id }) => (
+          <DishCard
+            img={img}
+            title={title}
+            date={cookedDateList[0]}
+            id={id || ''}
+            key={id}
+          />
+        ))}
     </Box>
   )
 }

@@ -14,6 +14,7 @@ import { Favorite, Restaurant } from '@material-ui/icons'
 import { useCommonStyles } from 'src/constant'
 
 interface Props {
+  id: string
   img: string
   title: string
   date: string
@@ -41,13 +42,16 @@ const useStyles = makeStyles(() =>
   })
 )
 
-export const DishCard = ({ img, title, date }: Props) => {
+export const DishCard = ({ id, img, title, date }: Props) => {
   const history = useHistory()
   const classes = useStyles()
   const commonCl = useCommonStyles()
 
   return (
-    <Card className={classes.root} onClick={() => history.push('/detail/test')}>
+    <Card
+      className={classes.root}
+      onClick={() => history.push(`/detail/${id}`)}
+    >
       <Grid container direction="row">
         <Grid item xs={4}>
           <CardMedia className={classes.media} image={img} title="title" />

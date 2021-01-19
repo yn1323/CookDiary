@@ -34,12 +34,7 @@ declare module 'Store' {
   }
   export interface List {
     isLoaded: boolean
-    result: {
-      id: string
-      img: string
-      title: string
-      date: string
-    }[]
+    result: Post[]
   }
   export interface Post {
     id?: string

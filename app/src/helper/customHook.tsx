@@ -22,6 +22,7 @@ export const useFetch = async ({
   }, watch)
 }
 
+// useless
 export const useFirestore = async ({
   action = null as any,
   watch = [] as any,

@@ -13,9 +13,8 @@ const initialState: StateType = {
   ...defaultVal,
 }
 
-export const fetchList = createAsyncThunk(
-  `${STORE_NAME}/fetchTotal`,
-  async () => getList()
+export const fetchList = createAsyncThunk(`${STORE_NAME}/fetchList`, async () =>
+  getList()
 )
 
 const State = createSlice({
@@ -26,7 +25,8 @@ const State = createSlice({
     addCase(fetchList.pending, () => ({ ...initialState })).addCase(
       fetchList.fulfilled,
       (state: StateType, { payload }: any) => {
-        ;(state.isLoaded = true), (state.result = [...payload])
+        state.isLoaded = true
+        state.result = [...payload]
       }
     )
   },
