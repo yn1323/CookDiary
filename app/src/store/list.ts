@@ -20,7 +20,11 @@ export const fetchList = createAsyncThunk(`${STORE_NAME}/fetchList`, async () =>
 const State = createSlice({
   name: STORE_NAME,
   initialState,
-  reducers: {},
+  reducers: {
+    initializeList: (_: StateType) => ({
+      ...initialState,
+    }),
+  },
   extraReducers: ({ addCase }) => {
     addCase(fetchList.pending, () => ({ ...initialState })).addCase(
       fetchList.fulfilled,
@@ -34,4 +38,4 @@ const State = createSlice({
 
 export default State.reducer
 
-// export const { reset, setSearch } = State.actions
+export const { initializeList } = State.actions

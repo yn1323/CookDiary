@@ -14,10 +14,10 @@ export const TagSelectButton = () => {
   const classes = useStyles()
 
   const { setDialogComponent, setIsDialogOpen } = useDialog()
-  const { post, postDispatch } = usePost()
+  const { post, setPost } = usePost()
   const { tag } = post
   const handleTagSelected = (action: string) => {
-    postDispatch({ tag: action })
+    setPost({ tag: action })
     setIsDialogOpen(false)
   }
 

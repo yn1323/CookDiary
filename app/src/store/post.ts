@@ -1,4 +1,5 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { getPost } from 'src/helper'
 import { Post as StateType } from 'Store'
 
 const STORE_NAME = 'post'
@@ -18,6 +19,11 @@ const initialState: StateType = {
   ...defaultVal,
 }
 
+export const fetchPost = createAsyncThunk(
+  `${STORE_NAME}/fetchPost`,
+  async (docId: string) => getPost(docId)
+)
+
 const State = createSlice({
   name: STORE_NAME,
   initialState,
@@ -27,6 +33,12 @@ const State = createSlice({
       ...state,
       ...payload,
     }),
+  },
+  extraReducers: ({ addCase }) => {
+    addCase(fetchPost.fulfilled, (state: StateType, { payload }: any) => ({
+      ...state,
+      ...payload,
+    }))
   },
 })
 

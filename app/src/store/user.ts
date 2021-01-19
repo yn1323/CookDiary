@@ -16,10 +16,10 @@ const State = createSlice({
   name: STORE_NAME,
   initialState,
   reducers: {
-    setUserId: (state: StateType, { payload }) => ({
-      ...state,
-      ...payload,
-    }),
+    // setUserId: (state: StateType, { payload }) => ({
+    //   ...state,
+    //   ...payload,
+    // }),
     updateUserId: (state: StateType, { payload }) => {
       updateLSUserId(payload.id)
       return { ...state, ...payload }
@@ -29,4 +29,4 @@ const State = createSlice({
 
 export default State.reducer
 
-export const { setUserId, updateUserId } = State.actions
+export const { updateUserId } = State.actions

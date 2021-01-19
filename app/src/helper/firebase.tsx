@@ -53,8 +53,10 @@ export const createPost = async (payload: Post) => {
     })
 }
 
-export const getPost = async () => {
-  return ''
+export const getPost = async (docId: string) => {
+  const ref = db.collection(getId()).doc(docId)
+  const snapshot = await ref.get()
+  return snapshot.data()
 }
 
 export const updatePost = async () => {

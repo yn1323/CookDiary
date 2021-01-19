@@ -29,7 +29,7 @@ const Edit = () => {
   const history = useHistory()
   const spacing = 3
   const { setIsDialogOpen, setDialogComponent } = useDialog()
-  const { post, postDispatch, resetPost } = usePost()
+  const { post, setPost, resetPost } = usePost()
 
   // 初期化
   useEffect(() => resetPost, [])

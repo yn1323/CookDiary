@@ -11,12 +11,13 @@ import CenterSpinner from 'src/component/molecule/CenterSpinner'
 
 const List = () => {
   const dispatch = useDispatch()
+  const { list = {} as ListState } = useSelector((state: State) => state)
+  const { isLoaded, result } = list
+
   useEffect(() => {
     dispatch(fetchList())
   }, [])
 
-  const { list = {} as ListState } = useSelector((state: State) => state)
-  const { isLoaded, result } = list
   // const hasCondition = useHasSearchCondition()
 
   if (!isLoaded) {

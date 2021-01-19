@@ -13,6 +13,7 @@ import { updateUserId } from 'src/store/user'
 import IconTextbox from 'src/component/molecule/IconTextbox'
 
 import { State } from 'Store'
+import { initializeList } from 'src/store/list'
 
 const useStyles = makeStyles({
   tagButton: {
@@ -31,6 +32,7 @@ const Config = () => {
   const registerId = () => {
     setDisableUserId(true)
     dispatch(updateUserId({ id: id.current?.value }))
+    dispatch(initializeList())
   }
 
   return (
