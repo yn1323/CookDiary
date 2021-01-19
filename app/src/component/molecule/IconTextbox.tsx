@@ -18,12 +18,14 @@ interface Props {
   inputRef: any
   icon: any
   placeholder?: string
+  disabled?: boolean
 }
 const IconTextbox = ({
   defaultVal = '',
   icon,
   placeholder = '',
   inputRef,
+  disabled = false,
 }: Props) => {
   const classes = useStyles()
   return (
@@ -35,6 +37,7 @@ const IconTextbox = ({
           label={placeholder}
           defaultValue={defaultVal}
           className={classes.textField}
+          disabled={disabled}
         />
       </Grid>
     </Grid>

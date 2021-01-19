@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { User as StateType } from 'Store'
-import { initializeUserId } from 'src/helper'
+import { initializeUserId, updateLSUserId } from 'src/helper'
 
 const STORE_NAME = 'user'
 
@@ -20,9 +20,13 @@ const State = createSlice({
       ...state,
       ...payload,
     }),
+    updateUserId: (state: StateType, { payload }) => {
+      updateLSUserId(payload.id)
+      return { ...state, ...payload }
+    },
   },
 })
 
 export default State.reducer
 
-export const { setUserId } = State.actions
+export const { setUserId, updateUserId } = State.actions

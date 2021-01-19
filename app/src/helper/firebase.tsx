@@ -1,13 +1,22 @@
 import { useSelector } from 'react-redux'
+
+import { LS_USER_ID } from 'src/constant'
+
 import { db } from 'src/constant/firebase'
+
 import { State, User } from 'Store'
+
 const generateFirebaseId = () => {
   return db.collection('_').doc().id
 }
 
+export const updateLSUserId = (id: string) => {
+  window.localStorage.setItem(LS_USER_ID, id)
+}
+
 export const initializeUserId = () => {
-  const id = window.localStorage.getItem('userId') || generateFirebaseId()
-  window.localStorage.setItem('userId', id)
+  const id = window.localStorage.getItem(LS_USER_ID) || generateFirebaseId()
+  updateLSUserId(id)
   return id
 }
 
