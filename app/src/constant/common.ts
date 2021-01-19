@@ -46,3 +46,5 @@ export const tags: Tag[] = [
 export const currentDate = moment().format('YYYY-MM-DD')
 
 export const LS_USER_ID = 'userId'
+
+export const APP_NAME = 'cookdiary'

@@ -42,13 +42,13 @@ declare module 'Store' {
     }[]
   }
   export interface Post {
-    id: string
+    id?: string
     title: string
     tag: string
-    date: string
-    image: string
-    ingredient: string
-    step: string
-    tip: string
+    cookedDateList: string[]
+    img: string
+    ingredients: string
+    steps: string
+    tips: string
   }
 }

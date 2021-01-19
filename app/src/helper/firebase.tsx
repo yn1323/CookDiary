@@ -1,13 +1,18 @@
 import { useSelector } from 'react-redux'
 
-import { LS_USER_ID } from 'src/constant'
+import { APP_NAME, LS_USER_ID } from 'src/constant'
 
 import { db } from 'src/constant/firebase'
 
-import { State, User } from 'Store'
+import { Post, State, User } from 'Store'
+import { encodeHtmlLineBreak } from './common'
 
 const generateFirebaseId = () => {
   return db.collection('_').doc().id
+}
+
+const getId = () => {
+  return window.localStorage.getItem(LS_USER_ID) || ''
 }
 
 export const updateLSUserId = (id: string) => {
@@ -15,7 +20,7 @@ export const updateLSUserId = (id: string) => {
 }
 
 export const initializeUserId = () => {
-  const id = window.localStorage.getItem(LS_USER_ID) || generateFirebaseId()
+  const id = getId() || generateFirebaseId()
   updateLSUserId(id)
   return id
 }
@@ -32,8 +37,20 @@ export const getList = async () => {
   return docs
 }
 
-export const createPost = async () => {
-  return ''
+export const createPost = async (payload: Post) => {
+  const userId = getId()
+  const docId = generateFirebaseId()
+  await db
+    .collection(userId)
+    .doc(docId)
+    .set({
+      ...payload,
+      // ingredients: encodeHtmlLineBreak(payload.ingredients),
+      // tips: encodeHtmlLineBreak(payload.tips),
+      // steps: encodeHtmlLineBreak(payload.steps),
+      deleteFlg: false,
+      type: APP_NAME,
+    })
 }
 
 export const getPost = async () => {

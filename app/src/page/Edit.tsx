@@ -8,9 +8,10 @@ import TagSelectButton from 'src/component/molecule/TagSelectButton'
 import EditTextarea from 'src/component/molecule/EditTextarea'
 import ImgUpload from 'src/component/molecule/ImgUpload'
 
-import { useDialog, usePost } from 'src/helper'
+import { createPost, useDialog, usePost } from 'src/helper'
 import { currentDate } from 'src/constant'
 import { useHistory } from 'react-router-dom'
+import { Post } from 'Store'
 
 const useStyles = makeStyles({
   dateWrapper: {
@@ -33,10 +34,10 @@ const Edit = () => {
   // 初期化
   useEffect(() => resetPost, [])
 
-  const title = useRef<TextFieldProps>(null)
-  const ingredient = useRef<TextFieldProps>(null)
-  const step = useRef<TextFieldProps>(null)
-  const tip = useRef<TextFieldProps>(null)
+  const title: any = useRef<TextFieldProps>(null)
+  const ingredient: any = useRef<TextFieldProps>(null)
+  const step: any = useRef<TextFieldProps>(null)
+  const tip: any = useRef<TextFieldProps>(null)
 
   const hasValidateValue = (payload: any) => {
     let errMsg = ''
@@ -51,21 +52,23 @@ const Edit = () => {
   }
 
   const register = () => {
-    const payload = {
-      title: title.current?.value,
+    const payload: Post = {
+      title: title?.current?.value || '',
       tag: post.tag || 'etc',
-      date: currentDate,
-      image: '',
-      ingredient: ingredient.current?.value,
-      step: step.current?.value,
-      tip: tip.current?.value,
+      cookedDateList: [currentDate],
+      img: '',
+      ingredients: ingredient.current?.value || '',
+      steps: step.current?.value || '',
+      tips: tip.current?.value || '',
     }
-
+    console.log(payload)
     if (hasValidateValue(payload)) {
       setIsDialogOpen(true)
       return
     }
-    postDispatch(payload)
+    // postDispatch(payload)
+
+    createPost(payload)
     history.push('/')
   }
 

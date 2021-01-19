@@ -7,11 +7,11 @@ export const defaultVal: StateType = {
   id: '',
   title: '',
   tag: '',
-  date: '',
-  image: '',
-  ingredient: '',
-  step: '',
-  tip: '',
+  cookedDateList: [],
+  img: '',
+  ingredients: '',
+  steps: '',
+  tips: '',
 }
 
 const initialState: StateType = {
