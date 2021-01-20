@@ -6,7 +6,7 @@ const STORE_NAME = 'search'
 export const defaultVal: StateType = {
   keyword: '',
   dateRange: '',
-  tag: 0,
+  tag: '',
 }
 
 const initialState: StateType = {
@@ -19,9 +19,10 @@ const State = createSlice({
   reducers: {
     reset: () => ({ ...defaultVal }),
     setSearch: (state: StateType, { payload }) => ({ ...state, ...payload }),
+    delSearch: (state: StateType, { payload }) => ({ ...state, [payload]: '' }),
   },
 })
 
 export default State.reducer
 
-export const { reset, setSearch } = State.actions
+export const { reset, setSearch, delSearch } = State.actions

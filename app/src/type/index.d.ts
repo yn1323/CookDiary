@@ -18,7 +18,7 @@ declare module 'Store' {
   export interface Search {
     keyword: string
     dateRange: string
-    tag: number
+    tag: string
   }
   export interface Component {
     isDrawerOpen: boolean
@@ -45,5 +45,12 @@ declare module 'Store' {
     ingredients: string
     steps: string
     tips: string
+  }
+}
+
+declare module 'Request' {
+  export interface FetchList {
+    [key: string]: any
+    tag?: string
   }
 }

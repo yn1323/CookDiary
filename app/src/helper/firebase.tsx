@@ -5,6 +5,7 @@ import { isProduction, APP_NAME, LS_USER_ID } from 'src/constant'
 import { db, DEV_COLLECTION } from 'src/constant/firebase'
 
 import { Post, State, User } from 'Store'
+import { FetchList } from 'Request'
 
 const generateFirebaseId = () => {
   return db.collection('_').doc().id
@@ -29,10 +30,14 @@ const getUserId = () => {
   return user.id
 }
 
-export const getList = async () => {
+export const getList = async (searchObj: FetchList) => {
+  // const hasCondition = !!Object.keys(searchObj).length
+  // const conditions = Object.keys(searchObj).map((key: string) => ({key, val: searchObj[key]}))
+
   const ref = db.collection(getId())
-  // const ref = db.collection(getId()).limit(10)
-  const snapshots = await ref.get()
+  const snapshots = searchObj.tag
+    ? await ref.where('tag', '==', searchObj?.tag || '').get()
+    : await ref.get()
   const docs = snapshots.docs.map(doc => ({ id: doc.id, ...doc.data() }))
   return docs
 }

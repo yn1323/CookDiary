@@ -4,21 +4,24 @@ import { Box } from '@material-ui/core'
 
 import DishCard from 'src/component/organism/DishCard'
 import Filter from 'src/component/organism/Filter'
-import { getList, useFirestore, useHasSearchCondition } from 'src/helper'
+import { useHasSearchCondition } from 'src/helper'
 import { fetchList } from 'src/store/list'
-import { List as ListState, State } from 'Store'
+import { List as ListState, Search, State } from 'Store'
 import CenterSpinner from 'src/component/molecule/CenterSpinner'
 
 const List = () => {
   const dispatch = useDispatch()
-  const { list = {} as ListState } = useSelector((state: State) => state)
+  const { list = {} as ListState, search = {} as Search } = useSelector(
+    (state: State) => state
+  )
   const { isLoaded, result } = list
 
   useEffect(() => {
-    dispatch(fetchList())
-  }, [])
+    dispatch(fetchList({ tag: search.tag }))
+  }, [search])
 
-  // const hasCondition = useHasSearchCondition()
+  const hasCondition = useHasSearchCondition()
+  const hasResult = !!result.filter(r => r.id).length
 
   if (!isLoaded) {
     return <CenterSpinner />
@@ -26,7 +29,7 @@ const List = () => {
 
   return (
     <Box>
-      {/* {hasCondition && <Filter />} */}
+      {hasCondition && <Filter />}
       {result
         .filter(r => r.id)
         .map(({ img, title, cookedDateList, id }) => (
@@ -38,6 +41,7 @@ const List = () => {
             key={id}
           />
         ))}
+      {!hasResult && <div>検索結果なし</div>}
     </Box>
   )
 }

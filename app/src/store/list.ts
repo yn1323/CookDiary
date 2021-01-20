@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { getList } from 'src/helper'
 import { List as StateType } from 'Store'
+import { FetchList } from 'Request'
 
 const STORE_NAME = 'list'
 
@@ -13,8 +14,9 @@ const initialState: StateType = {
   ...defaultVal,
 }
 
-export const fetchList = createAsyncThunk(`${STORE_NAME}/fetchList`, async () =>
-  getList()
+export const fetchList = createAsyncThunk(
+  `${STORE_NAME}/fetchList`,
+  async (searchObj: FetchList) => getList(searchObj)
 )
 
 const State = createSlice({

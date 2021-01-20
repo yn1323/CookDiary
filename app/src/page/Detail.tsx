@@ -15,6 +15,7 @@ import CenterSpinner from 'src/component/molecule/CenterSpinner'
 import { List, Post, State } from 'Store'
 import { fetchPost, setPost } from 'src/store/post'
 import { usePost } from 'src/helper'
+import { tags } from 'src/constant'
 
 const useStyles = makeStyles({
   dateWrapper: {
@@ -42,7 +43,6 @@ const Detail = () => {
       dispatch(fetchPost(id))
     }
   }, [])
-
   const classes = useStyles()
   const spacing = 3
 
