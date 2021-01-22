@@ -97,7 +97,7 @@ const PostEditable = () => {
         <Grid item>
           <div className={classes.dateWrapper}>
             {/* 日付 */}
-            <CurrentDate defaultDate={currentPost.cookedDateList[0]} />
+            <CurrentDate />
           </div>
         </Grid>
       </Grid>
