@@ -39,20 +39,18 @@ export const TagList = ({ dispatch }: Props) => {
   return (
     <List dense className={classes.root}>
       {tags.map(({ label, img, index }) => (
-        <>
-          <ListItem
-            key={index}
-            button
-            className={classes.listitem}
-            onClick={() => dispatch(label)}
-          >
-            <ListItemAvatar>
-              <Avatar alt={label} src={img} variant="square" />
-            </ListItemAvatar>
-            <ListItemText id={label} primary={label} />
-            <ArrowForwardIos fontSize="small" color="primary" />
-          </ListItem>
-        </>
+        <ListItem
+          key={index}
+          button
+          className={classes.listitem}
+          onClick={() => dispatch(label)}
+        >
+          <ListItemAvatar>
+            <Avatar alt={label} src={img} variant="square" />
+          </ListItemAvatar>
+          <ListItemText id={label} primary={label} />
+          <ArrowForwardIos fontSize="small" color="primary" />
+        </ListItem>
       ))}
     </List>
   )

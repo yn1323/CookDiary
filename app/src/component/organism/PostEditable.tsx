@@ -40,7 +40,7 @@ const PostEditable = () => {
   const { isImgUploading, initializeImgUploading } = useImgUploading()
 
   const [currentPost, setCurrentPost] = useState(post)
-  const fbuid = generateFirebaseId()
+  const [fbuid, _] = useState(generateFirebaseId())
   const imgPath = `/${getId()}/${currentPost.id || fbuid}`
 
   useEffect(() => {
