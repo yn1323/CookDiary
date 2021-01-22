@@ -2,10 +2,14 @@ import React from 'react'
 import { Typography } from '@material-ui/core'
 import { currentDate } from 'src/constant'
 
-export const CurrentDate = () => {
+interface Props {
+  defaultDate: string
+}
+
+export const CurrentDate = ({ defaultDate = '' }: Props) => {
   return (
     <Typography variant="body1" color="textSecondary">
-      {currentDate}
+      {defaultDate || currentDate}
     </Typography>
   )
 }

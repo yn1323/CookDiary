@@ -39,7 +39,7 @@ const Config = () => {
     <Grid container spacing={spacing}>
       <Grid item xs={10}>
         <IconTextbox
-          defaultVal={user.id}
+          defaultValue={user.id}
           inputRef={id}
           icon={<Person color="disabled" />}
           placeholder="ユーザーID"

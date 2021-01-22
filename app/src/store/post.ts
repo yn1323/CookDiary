@@ -1,7 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { deletePost, getPost } from 'src/helper'
+import { deletePost, getPost, updatePost } from 'src/helper'
 import { Post as StateType } from 'Store'
-import store from '.'
 
 const STORE_NAME = 'post'
 
@@ -28,6 +27,11 @@ export const fetchPost = createAsyncThunk(
 export const delPost = createAsyncThunk(
   `${STORE_NAME}/delPost`,
   async (docId: string) => deletePost(docId)
+)
+
+export const updPost = createAsyncThunk(
+  `${STORE_NAME}/updatePost`,
+  async (post: StateType) => updatePost(post)
 )
 
 const State = createSlice({

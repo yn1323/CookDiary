@@ -16,7 +16,7 @@ import {
 import { useDialog, useDrawer } from 'src/helper'
 import { isProduction, useCommonStyles } from 'src/constant'
 import { Post, State } from 'Store'
-import { delPost } from 'src/store/post'
+import { delPost, resetPost } from 'src/store/post'
 
 const useStyles = makeStyles(theme =>
   createStyles({
@@ -76,31 +76,11 @@ const NavigationHeader = () => {
         </IconButton>
         <div className={classes.grow} />
         <div className={classes.sectionIcon}>
-          {/*  Edit */}
-          {!isProduction && (
-            <IconButton
-              color="inherit"
-              onClick={() => history.push('/edit/test')}
-            >
-              <Edit />
-            </IconButton>
-          )}
-
-          {/*  Detail */}
-          {!isProduction && (
-            <IconButton
-              color="inherit"
-              onClick={() => history.push('/detail/test')}
-            >
-              <Details />
-            </IconButton>
-          )}
-
           {isDetail && (
             <>
               <IconButton
                 color="inherit"
-                onClick={() => history.push('/edit/test')}
+                onClick={() => history.push(`/edit/${post.id || ''}`)}
               >
                 <Edit />
               </IconButton>
@@ -116,7 +96,13 @@ const NavigationHeader = () => {
               <IconButton color="inherit" onClick={() => showSearchDialog()}>
                 <Search />
               </IconButton>
-              <IconButton color="inherit" onClick={() => history.push('/new')}>
+              <IconButton
+                color="inherit"
+                onClick={() => {
+                  dispatch(resetPost())
+                  history.push('/new')
+                }}
+              >
                 <Add />
               </IconButton>
             </>

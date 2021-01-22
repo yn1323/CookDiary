@@ -41,7 +41,13 @@ const List = () => {
             key={id}
           />
         ))}
-      {!hasResult && <div>検索結果なし</div>}
+      {!hasResult && (
+        <div>
+          料理が未登録です。
+          <br />
+          右上の+マークから新規料理を登録してください。
+        </div>
+      )}
     </Box>
   )
 }

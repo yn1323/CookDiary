@@ -16,7 +16,6 @@ interface Props {
 
 const StableTextarea = ({ title, val }: Props) => {
   const classes = useStyles()
-  console.log(val.includes('\n'))
   return (
     <>
       <Typography variant="body1">{title}</Typography>

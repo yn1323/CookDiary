@@ -14,14 +14,14 @@ const useStyles = makeStyles({
 })
 
 interface Props {
-  defaultVal?: string
+  defaultValue?: string
   inputRef: any
   icon: any
   placeholder?: string
   disabled?: boolean
 }
 const IconTextbox = ({
-  defaultVal = '',
+  defaultValue = '',
   icon,
   placeholder = '',
   inputRef,
@@ -35,7 +35,7 @@ const IconTextbox = ({
         <TextField
           inputRef={inputRef}
           label={placeholder}
-          defaultValue={defaultVal}
+          defaultValue={defaultValue}
           className={classes.textField}
           disabled={disabled}
         />

@@ -13,7 +13,7 @@ import {
 
 import { setDialog, showDialog, toggleDrawer } from 'src/store/component'
 import { setSearch } from 'src/store/search'
-import { setPost, resetPost } from 'src/store/post'
+import { fetchPost, setPost, resetPost, updPost } from 'src/store/post'
 
 export const useFetch = async ({
   action = null as any,
@@ -123,8 +123,9 @@ export const usePost = () => {
   return {
     isExist: !!post.title,
     post,
+    getPost: (docId: string) => dispatch(fetchPost(docId)),
     setPost: (obj: { [key: string]: any }) => dispatch(setPost(obj)),
     resetPost: () => dispatch(resetPost()),
-    updatePost: () => dispatch(),
+    updatePost: (post: Post) => dispatch(updPost(post)),
   }
 }

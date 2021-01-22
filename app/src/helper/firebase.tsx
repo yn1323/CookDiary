@@ -1,9 +1,8 @@
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 
 import { isProduction, APP_NAME, LS_USER_ID } from 'src/constant'
 
 import { db, DEV_COLLECTION } from 'src/constant/firebase'
-import { initializeList } from 'src/store/list'
 
 import { Post, State, User } from 'Store'
 import { FetchList } from 'Request'
@@ -69,8 +68,11 @@ export const getPost = async (docId: string) => {
   return snapshot.data()
 }
 
-export const updatePost = async () => {
-  return ''
+export const updatePost = async (post: Post) => {
+  const ref = db.collection(getId()).doc(post.id)
+  await ref.update({
+    ...post,
+  })
 }
 
 export const deletePost = async (docId: string) => {

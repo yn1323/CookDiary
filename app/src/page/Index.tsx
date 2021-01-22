@@ -14,7 +14,7 @@ import DialogTemplate from 'src/component/template/Dialog'
 const Index = () => {
   // buildすると、なぜかRoute内にpyが付与されるので、分岐を追加
   // もしかするとエミュレータでも発生せず、apk化したときのみ発生する事象の回避用かも
-  const padding = process.env.NODE_ENV === 'production' ? 0 : 7
+  const padding = process.env.NODE_ENV === 'production' ? 7 : 7
   return (
     <>
       {/* <NavigationTop /> */}
