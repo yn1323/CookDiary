@@ -7,11 +7,11 @@ import { db, DEV_COLLECTION } from 'src/constant/firebase'
 import { Post, State, User } from 'Store'
 import { FetchList } from 'Request'
 
-const generateFirebaseId = () => {
+export const generateFirebaseId = () => {
   return db.collection('_').doc().id
 }
 
-const getId = () => {
+export const getId = () => {
   return window.localStorage.getItem(LS_USER_ID) || ''
 }
 const getCurrentPost = () => {
@@ -46,14 +46,13 @@ export const getList = async (searchObj: FetchList) => {
   return docs
 }
 
-export const createPost = async (payload: Post) => {
+export const createPost = async (post: Post) => {
   const userId = getId()
-  const docId = generateFirebaseId()
   await db
     .collection(userId)
-    .doc(docId)
+    .doc(post.id)
     .set({
-      ...payload,
+      ...post,
       deleteFlg: false,
       type: APP_NAME,
     })

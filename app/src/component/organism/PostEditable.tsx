@@ -8,7 +8,13 @@ import TagSelectButton from 'src/component/molecule/TagSelectButton'
 import EditTextarea from 'src/component/molecule/EditTextarea'
 import ImgUpload from 'src/component/molecule/ImgUpload'
 
-import { createPost, useDialog, usePost } from 'src/helper'
+import {
+  createPost,
+  useDialog,
+  usePost,
+  generateFirebaseId,
+  getId,
+} from 'src/helper'
 import { currentDate } from 'src/constant'
 import { useHistory } from 'react-router-dom'
 import { Post } from 'Store'
@@ -55,11 +61,13 @@ const PostEditable = () => {
   }
 
   const register = () => {
+    const fbuid = generateFirebaseId()
     const payload: Post = {
+      id: currentPost.id || fbuid,
       title: title?.current?.value || '',
       tag: currentPost.tag || 'etc',
       cookedDateList: [currentDate],
-      img: '',
+      img: currentPost.img || `/${getId()}/${fbuid}`,
       ingredients: ingredient.current?.value || '',
       steps: step.current?.value || '',
       tips: tip.current?.value || '',
@@ -70,7 +78,6 @@ const PostEditable = () => {
     }
 
     if (currentPost.id) {
-      payload.id = currentPost.id
       updatePost(payload)
     } else {
       createPost(payload)
