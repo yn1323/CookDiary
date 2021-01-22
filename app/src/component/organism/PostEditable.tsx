@@ -56,7 +56,6 @@ const PostEditable = () => {
 
   const register = () => {
     const payload: Post = {
-      id: currentPost.id,
       title: title?.current?.value || '',
       tag: currentPost.tag || 'etc',
       cookedDateList: [currentDate],
@@ -71,6 +70,7 @@ const PostEditable = () => {
     }
 
     if (currentPost.id) {
+      payload.id = currentPost.id
       updatePost(payload)
     } else {
       createPost(payload)

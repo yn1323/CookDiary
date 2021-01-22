@@ -54,9 +54,6 @@ export const createPost = async (payload: Post) => {
     .doc(docId)
     .set({
       ...payload,
-      // ingredients: encodeHtmlLineBreak(payload.ingredients),
-      // tips: encodeHtmlLineBreak(payload.tips),
-      // steps: encodeHtmlLineBreak(payload.steps),
       deleteFlg: false,
       type: APP_NAME,
     })
@@ -65,7 +62,7 @@ export const createPost = async (payload: Post) => {
 export const getPost = async (docId: string) => {
   const ref = db.collection(getId()).doc(docId)
   const snapshot = await ref.get()
-  return snapshot.data()
+  return { ...snapshot.data(), id: snapshot.id }
 }
 
 export const updatePost = async (post: Post) => {

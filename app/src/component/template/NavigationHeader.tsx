@@ -58,7 +58,6 @@ const NavigationHeader = () => {
   const deletePost = () => {
     if (window?.confirm('本当に削除しますか？')) {
       dispatch(delPost(post.id || ''))
-      console.log('削除しました')
       history.push('/')
     }
   }
