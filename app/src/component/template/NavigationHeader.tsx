@@ -1,4 +1,5 @@
 import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { makeStyles, createStyles } from '@material-ui/core/styles'
 import { AppBar, Toolbar, IconButton } from '@material-ui/core'
@@ -14,6 +15,8 @@ import {
 } from '@material-ui/icons'
 import { useDialog, useDrawer } from 'src/helper'
 import { isProduction, useCommonStyles } from 'src/constant'
+import { Post, State } from 'Store'
+import { delPost } from 'src/store/post'
 
 const useStyles = makeStyles(theme =>
   createStyles({
@@ -33,12 +36,14 @@ const useStyles = makeStyles(theme =>
 )
 
 const NavigationHeader = () => {
+  const dispatch = useDispatch()
   const { pathname } = useLocation()
   const isDetail = pathname.includes('/detail/')
   const classes = useStyles()
   const commonCl = useCommonStyles()
   const history = useHistory()
   const { setIsDrawerOpen } = useDrawer()
+  const { post = {} as Post } = useSelector((state: State) => state)
   // 今度使う
   // const { setIsDialogOpen, setDialogComponent } = useDialog()
 
@@ -52,6 +57,7 @@ const NavigationHeader = () => {
   }
   const deletePost = () => {
     if (window?.confirm('本当に削除しますか？')) {
+      dispatch(delPost(post.id || ''))
       console.log('削除しました')
       history.push('/')
     }

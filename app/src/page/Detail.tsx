@@ -2,11 +2,9 @@ import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { Grid, makeStyles } from '@material-ui/core'
-import { RestaurantMenu } from '@material-ui/icons'
 
 import Date from 'src/component/atom/Date'
 import RowTextarea from 'src/component/molecule/RowTextarea'
-import ImgUpload from 'src/component/molecule/ImgUpload'
 import TagButton from 'src/component/molecule/TagButton'
 import PostImage from 'src/component/molecule/PostImage'
 import PostTitle from 'src/component/atom/PostTitle'
@@ -15,7 +13,6 @@ import CenterSpinner from 'src/component/molecule/CenterSpinner'
 import { List, Post, State } from 'Store'
 import { fetchPost, setPost } from 'src/store/post'
 import { usePost } from 'src/helper'
-import { tags } from 'src/constant'
 
 const useStyles = makeStyles({
   dateWrapper: {

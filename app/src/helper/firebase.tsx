@@ -1,8 +1,9 @@
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 import { isProduction, APP_NAME, LS_USER_ID } from 'src/constant'
 
 import { db, DEV_COLLECTION } from 'src/constant/firebase'
+import { initializeList } from 'src/store/list'
 
 import { Post, State, User } from 'Store'
 import { FetchList } from 'Request'
@@ -13,6 +14,10 @@ const generateFirebaseId = () => {
 
 const getId = () => {
   return window.localStorage.getItem(LS_USER_ID) || ''
+}
+const getCurrentPost = () => {
+  const { post = {} as Post } = useSelector((state: State) => state)
+  return post
 }
 
 export const updateLSUserId = (id: string) => {
@@ -34,7 +39,7 @@ export const getList = async (searchObj: FetchList) => {
   // const hasCondition = !!Object.keys(searchObj).length
   // const conditions = Object.keys(searchObj).map((key: string) => ({key, val: searchObj[key]}))
 
-  const ref = db.collection(getId())
+  const ref = db.collection(getId()).where('deleteFlg', '==', false)
   const snapshots = searchObj.tag
     ? await ref.where('tag', '==', searchObj?.tag || '').get()
     : await ref.get()
@@ -68,6 +73,9 @@ export const updatePost = async () => {
   return ''
 }
 
-export const delPost = async () => {
-  return ''
+export const deletePost = async (docId: string) => {
+  const ref = db.collection(getId()).doc(docId)
+  await ref.update({
+    deleteFlg: true,
+  })
 }
