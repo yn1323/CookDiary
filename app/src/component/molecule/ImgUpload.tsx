@@ -3,7 +3,6 @@ import React, { useState } from 'react'
 import { Button, makeStyles } from '@material-ui/core'
 import { CameraAlt as Camera } from '@material-ui/icons'
 import { useCommonStyles } from 'src/constant'
-import { couldStartTrivia } from 'typescript'
 
 interface Props {
   defaultImage?: string
