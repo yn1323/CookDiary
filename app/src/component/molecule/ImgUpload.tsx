@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { Button, makeStyles } from '@material-ui/core'
 import { CameraAlt as Camera } from '@material-ui/icons'
 import { useCommonStyles } from 'src/constant'
+import { couldStartTrivia } from 'typescript'
 
 interface Props {
   defaultImage?: string
@@ -40,12 +41,12 @@ export const ImgUpload = ({ defaultImage = '' }: Props) => {
   const [tempImage, setTempImage]: any = useState(defaultImage)
 
   const handleUploadClick = (event: any) => {
-    const file = event.target.files[0]
     const reader = new FileReader()
-    const url = reader.readAsDataURL(file)
-
-    reader.onloadend = _ => {
+    reader.onload = _ => {
       setTempImage(reader.result)
+    }
+    if (event.target.files[0]) {
+      reader.readAsDataURL(event.target.files[0])
     }
   }
   return (
