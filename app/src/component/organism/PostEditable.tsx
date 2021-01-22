@@ -14,6 +14,7 @@ import {
   usePost,
   generateFirebaseId,
   getId,
+  useImgUploading,
 } from 'src/helper'
 import { currentDate } from 'src/constant'
 import { useHistory } from 'react-router-dom'
@@ -36,8 +37,15 @@ const PostEditable = () => {
   const spacing = 3
   const { setIsDialogOpen, setDialogComponent } = useDialog()
   const { post, updatePost } = usePost()
+  const { isImgUploading, initializeImgUploading } = useImgUploading()
 
   const [currentPost, setCurrentPost] = useState(post)
+  const fbuid = generateFirebaseId()
+  const imgPath = `/${getId()}/${currentPost.id || fbuid}`
+
+  useEffect(() => {
+    initializeImgUploading()
+  }, [])
 
   useEffect(() => {
     setCurrentPost({ ...post })
@@ -61,13 +69,12 @@ const PostEditable = () => {
   }
 
   const register = () => {
-    const fbuid = generateFirebaseId()
     const payload: Post = {
       id: currentPost.id || fbuid,
       title: title?.current?.value || '',
       tag: currentPost.tag || 'etc',
       cookedDateList: [currentDate],
-      img: currentPost.img || `/${getId()}/${fbuid}`,
+      img: post.img,
       ingredients: ingredient.current?.value || '',
       steps: step.current?.value || '',
       tips: tip.current?.value || '',
@@ -110,7 +117,7 @@ const PostEditable = () => {
       </Grid>
       <Grid item xs={12}>
         {/* 画像アップロード */}
-        <ImgUpload />
+        <ImgUpload imgPath={imgPath} />
       </Grid>
       <Grid item xs={12}>
         {/* 材料 */}
@@ -143,6 +150,7 @@ const PostEditable = () => {
           variant="contained"
           color="secondary"
           onClick={() => register()}
+          disabled={isImgUploading}
         >
           登録
         </Button>

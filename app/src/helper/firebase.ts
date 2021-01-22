@@ -1,8 +1,6 @@
-import { useSelector } from 'react-redux'
-
 import { isProduction, APP_NAME, LS_USER_ID } from 'src/constant'
 
-import { db, DEV_COLLECTION } from 'src/constant/firebase'
+import { db, storage, DEV_COLLECTION } from 'src/constant/firebase'
 
 import { Post, State, User } from 'Store'
 import { FetchList } from 'Request'
@@ -14,10 +12,6 @@ export const generateFirebaseId = () => {
 export const getId = () => {
   return window.localStorage.getItem(LS_USER_ID) || ''
 }
-const getCurrentPost = () => {
-  const { post = {} as Post } = useSelector((state: State) => state)
-  return post
-}
 
 export const updateLSUserId = (id: string) => {
   window.localStorage.setItem(LS_USER_ID, id)
@@ -27,11 +21,6 @@ export const initializeUserId = () => {
   const id = isProduction ? getId() || generateFirebaseId() : DEV_COLLECTION
   updateLSUserId(id)
   return id
-}
-
-const getUserId = () => {
-  const { user = {} as User } = useSelector((state: State) => state)
-  return user.id
 }
 
 export const getList = async (searchObj: FetchList) => {
@@ -76,4 +65,12 @@ export const deletePost = async (docId: string) => {
   await ref.update({
     deleteFlg: true,
   })
+}
+
+export const createImage = async (file: any, path: string) => {
+  console.log(path)
+  const storageRef = storage.ref(path)
+  const uploadTaskSnapshot = await storageRef.put(file)
+  const downloadURL = await uploadTaskSnapshot.ref.getDownloadURL()
+  return downloadURL
 }

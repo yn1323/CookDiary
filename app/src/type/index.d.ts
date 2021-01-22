@@ -24,6 +24,7 @@ declare module 'Store' {
     isDrawerOpen: boolean
     isDialogOpen: boolean
     dialog: Dialog
+    isImgUploading: boolean
   }
   export interface User {
     id: string

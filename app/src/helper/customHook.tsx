@@ -11,7 +11,12 @@ import {
   Post,
 } from 'Store'
 
-import { setDialog, showDialog, toggleDrawer } from 'src/store/component'
+import {
+  setDialog,
+  setImgUploading,
+  showDialog,
+  toggleDrawer,
+} from 'src/store/component'
 import { setSearch } from 'src/store/search'
 import { fetchPost, setPost, resetPost, updPost } from 'src/store/post'
 
@@ -124,8 +129,21 @@ export const usePost = () => {
     isExist: !!post.title,
     post,
     getPost: (docId: string) => dispatch(fetchPost(docId)),
+    updatePost: (post: Post) => dispatch(updPost(post)),
     setPost: (obj: { [key: string]: any }) => dispatch(setPost(obj)),
     resetPost: () => dispatch(resetPost()),
-    updatePost: (post: Post) => dispatch(updPost(post)),
+  }
+}
+
+export const useImgUploading = () => {
+  const dispatch = useDispatch()
+  const { component = {} as Component } = useSelector((state: State) => state)
+  const start = () => dispatch(setImgUploading({ isImgUploading: true }))
+  const end = () => dispatch(setImgUploading({ isImgUploading: false }))
+  return {
+    isImgUploading: component.isImgUploading,
+    initializeImgUploading: end,
+    startImgUploading: start,
+    endImgUploading: end,
   }
 }

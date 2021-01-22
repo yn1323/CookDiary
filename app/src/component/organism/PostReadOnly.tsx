@@ -47,7 +47,9 @@ export const PostReadOnly = () => {
       <Grid item xs={12}>
         {/* 画像 */}
         <PostImage
-          url={'https://material-ui.com/static/images/cards/paella.jpg'}
+          url={
+            post.img || 'https://material-ui.com/static/images/cards/paella.jpg'
+          }
         />
       </Grid>
       {ingredients && (

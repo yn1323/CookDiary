@@ -1,11 +1,12 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { Button, makeStyles } from '@material-ui/core'
 import { CameraAlt as Camera } from '@material-ui/icons'
 import { useCommonStyles } from 'src/constant'
+import { createImage, useImgUploading, usePost } from 'src/helper'
 
 interface Props {
-  defaultImage?: string
+  imgPath: string
 }
 
 const useStyles = makeStyles({
@@ -33,19 +34,33 @@ const useStyles = makeStyles({
   },
 })
 
-export const ImgUpload = ({ defaultImage = '' }: Props) => {
+export const ImgUpload = ({ imgPath }: Props) => {
   const classes = useStyles()
   const commonCl = useCommonStyles()
 
-  const [tempImage, setTempImage]: any = useState(defaultImage)
+  const [tempImage, setTempImage]: any = useState(null)
+  const {
+    isImgUploading,
+    startImgUploading,
+    endImgUploading,
+  } = useImgUploading()
+  const { post, setPost } = usePost()
 
-  const handleUploadClick = (event: any) => {
+  useEffect(() => {
+    setTempImage(post.img)
+  }, [post])
+
+  const handleUploadClick = async (event: any) => {
+    startImgUploading()
     const reader = new FileReader()
     reader.onload = _ => {
       setTempImage(reader.result)
     }
     if (event.target.files[0]) {
       reader.readAsDataURL(event.target.files[0])
+      const imgUrl = await createImage(event.target.files[0], imgPath)
+      setPost({ img: imgUrl })
+      endImgUploading()
     }
   }
   return (

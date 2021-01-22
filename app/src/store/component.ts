@@ -10,6 +10,7 @@ export const defaultVal: StateType = {
     title: '',
     component: '',
   },
+  isImgUploading: false,
 }
 
 const initialState: StateType = {
@@ -32,9 +33,18 @@ const State = createSlice({
       ...state,
       ...payload,
     }),
+    setImgUploading: (state: StateType, { payload }) => ({
+      ...state,
+      ...payload,
+    }),
   },
 })
 
 export default State.reducer
 
-export const { toggleDrawer, setDialog, showDialog } = State.actions
+export const {
+  toggleDrawer,
+  setDialog,
+  showDialog,
+  setImgUploading,
+} = State.actions
