@@ -61,16 +61,22 @@ export const updatePost = async (post: Post) => {
 }
 
 export const deletePost = async (docId: string) => {
+  const uid = getId()
   const ref = db.collection(getId()).doc(docId)
   await ref.update({
     deleteFlg: true,
   })
+  await deleteImage(`${getId()}/${docId}`)
 }
 
 export const createImage = async (file: any, path: string) => {
-  console.log(path)
   const storageRef = storage.ref(path)
   const uploadTaskSnapshot = await storageRef.put(file)
   const downloadURL = await uploadTaskSnapshot.ref.getDownloadURL()
   return downloadURL
+}
+
+export const deleteImage = async (path: string) => {
+  const deleteRef = storage.ref(path)
+  deleteRef.delete()
 }
