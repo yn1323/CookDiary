@@ -70,8 +70,13 @@ export const deletePost = async (docId: string) => {
 }
 
 export const createImage = async (file: any, path: string) => {
+  const metadata = {
+    customMetadata: {
+      optimized: 'false',
+    },
+  }
   const storageRef = storage.ref(path)
-  const uploadTaskSnapshot = await storageRef.put(file)
+  const uploadTaskSnapshot = await storageRef.put(file, metadata)
   const downloadURL = await uploadTaskSnapshot.ref.getDownloadURL()
   return downloadURL
 }

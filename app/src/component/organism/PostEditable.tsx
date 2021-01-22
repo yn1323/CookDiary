@@ -61,6 +61,9 @@ const PostEditable = () => {
     if (!payload.title) {
       errMsg += '料理名が未入力です。\n'
     }
+    if (!payload.img) {
+      errMsg += '画像がありません。\n'
+    }
     setDialogComponent({
       title: 'エラー',
       component: <>{errMsg}</>,
