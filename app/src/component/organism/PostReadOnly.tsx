@@ -52,18 +52,21 @@ export const PostReadOnly = () => {
       </Grid>
       {ingredients && (
         <Grid item xs={12}>
+          <hr />
           {/* 材料 */}
           <RowTextarea title="材料" val={ingredients} />
         </Grid>
       )}
       {steps && (
         <Grid item xs={12}>
+          <hr />
           {/* 手順 */}
           <RowTextarea title="手順" val={steps} />
         </Grid>
       )}
       {tips && (
         <Grid item xs={12}>
+          <hr />
           {/* コツポ */}
           <RowTextarea title="コツ・ポイント" val={tips} />
         </Grid>
