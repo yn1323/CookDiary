@@ -14,17 +14,17 @@ export const TagSelectButton = () => {
   const classes = useStyles()
 
   const { setDialogComponent, setIsDialogOpen } = useDialog()
-  const { post, postDispatch } = usePost()
+  const { post, setPost } = usePost()
   const { tag } = post
   const handleTagSelected = (action: string) => {
-    postDispatch({ tag: action })
+    setPost({ tag: action })
     setIsDialogOpen(false)
   }
 
   const selectDialog = () => {
     setDialogComponent({
       component: (
-        <TagList dispatch={(action: string) => handleTagSelected(action)} />
+        <TagList dispatch={(label: string) => handleTagSelected(label)} />
       ),
     })
     setIsDialogOpen(true)
@@ -38,7 +38,7 @@ export const TagSelectButton = () => {
       startIcon={<LocalOffer />}
       onClick={() => selectDialog()}
     >
-      {tagActionToStr(tag) || 'タグを選択'}
+      {tag || 'タグを選択'}
     </Button>
   )
 }

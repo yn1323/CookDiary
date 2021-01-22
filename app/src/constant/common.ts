@@ -43,4 +43,8 @@ export const tags: Tag[] = [
   { index: 16, label: 'その他', img: etc, action: 'etc' },
 ]
 
-export const currentDate = moment().format('YYYY-MM-DD')
+export const currentDate = moment().format('YYYY/M/D')
+
+export const LS_USER_ID = 'userId'
+
+export const APP_NAME = 'cookdiary'

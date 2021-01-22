@@ -5,10 +5,16 @@ import { useCommonStyles } from 'src/constant'
 interface Props {
   title: string
   inputRef: any
+  defaultValue?: string
   placeholder?: string
 }
 
-const EditTextarea = ({ title, inputRef, placeholder = '' }: Props) => {
+const EditTextarea = ({
+  title,
+  inputRef,
+  defaultValue = '',
+  placeholder = '',
+}: Props) => {
   const common = useCommonStyles()
   return (
     <>
@@ -19,7 +25,7 @@ const EditTextarea = ({ title, inputRef, placeholder = '' }: Props) => {
           multiline
           rows={5}
           inputRef={inputRef}
-          defaultValue=""
+          defaultValue={defaultValue}
           placeholder={placeholder}
           variant="outlined"
           className={common.width100}

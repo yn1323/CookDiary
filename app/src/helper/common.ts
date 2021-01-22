@@ -82,3 +82,6 @@ export const tagNumToStr = (tagNum: number) => {
 export const tagActionToStr = (tagAction: string) => {
   return tags.find(({ action }) => action === tagAction)?.label || ''
 }
+
+export const encodeHtmlLineBreak = (str: string) =>
+  str.replace(/\r?\n/g, '<br />')

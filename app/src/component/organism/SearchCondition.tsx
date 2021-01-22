@@ -35,7 +35,7 @@ const SearchCondition = () => {
     <FormControl>
       {/* <IconTextbox
         inputRef={hoge}
-        defaultVal={keyword}
+        defaultValue={keyword}
         setter={setText}
         icon={<Search color="disabled" />}
       ></IconTextbox> */}

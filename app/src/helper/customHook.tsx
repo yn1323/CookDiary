@@ -1,12 +1,19 @@
 import React, { useEffect, useRef } from 'react'
+import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { LocalOffer, List, Search, Settings } from '@material-ui/icons'
-import { Component, State, Search as SearchType, Post } from 'Store'
+import {
+  Component,
+  List as ListState,
+  State,
+  Search as SearchType,
+  Post,
+} from 'Store'
 
 import { setDialog, showDialog, toggleDrawer } from 'src/store/component'
 import { setSearch } from 'src/store/search'
-import { setPost, resetPost } from 'src/store/post'
+import { fetchPost, setPost, resetPost, updPost } from 'src/store/post'
 
 export const useFetch = async ({
   action = null as any,
@@ -22,6 +29,7 @@ export const useFetch = async ({
   }, watch)
 }
 
+// useless
 export const useFirestore = async ({
   action = null as any,
   watch = [] as any,
@@ -109,12 +117,15 @@ export const useDialog = () => {
 }
 
 export const usePost = () => {
-  const { post = {} as Post } = useSelector((state: State) => state)
   const dispatch = useDispatch()
+  const { post = {} as Post } = useSelector((state: State) => state)
 
   return {
+    isExist: !!post.title,
     post,
-    postDispatch: (obj: { [key: string]: any }) => dispatch(setPost(obj)),
+    getPost: (docId: string) => dispatch(fetchPost(docId)),
+    setPost: (obj: { [key: string]: any }) => dispatch(setPost(obj)),
     resetPost: () => dispatch(resetPost()),
+    updatePost: (post: Post) => dispatch(updPost(post)),
   }
 }

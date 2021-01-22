@@ -21,7 +21,15 @@ const StableTextarea = ({ title, val }: Props) => {
       <Typography variant="body1">{title}</Typography>
       <Grid item xs={12}>
         <Paper className={classes.paper} elevation={0}>
-          <Typography variant="body2">{val}</Typography>
+          {val.includes('\n') ? (
+            val.split('\n').map((v, i) => (
+              <Typography variant="body2" key={i}>
+                {v}
+              </Typography>
+            ))
+          ) : (
+            <Typography variant="body2">{val}</Typography>
+          )}
         </Paper>
       </Grid>
     </>

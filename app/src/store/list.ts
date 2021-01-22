@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { getList } from 'src/helper'
 import { List as StateType } from 'Store'
+import { FetchList } from 'Request'
 
 const STORE_NAME = 'list'
 
@@ -14,19 +15,24 @@ const initialState: StateType = {
 }
 
 export const fetchList = createAsyncThunk(
-  `${STORE_NAME}/fetchTotal`,
-  async () => getList()
+  `${STORE_NAME}/fetchList`,
+  async (searchObj: FetchList) => getList(searchObj)
 )
 
 const State = createSlice({
   name: STORE_NAME,
   initialState,
-  reducers: {},
+  reducers: {
+    initializeList: (_: StateType) => ({
+      ...initialState,
+    }),
+  },
   extraReducers: ({ addCase }) => {
     addCase(fetchList.pending, () => ({ ...initialState })).addCase(
       fetchList.fulfilled,
       (state: StateType, { payload }: any) => {
-        ;(state.isLoaded = true), (state.result = [...payload])
+        state.isLoaded = true
+        state.result = [...payload]
       }
     )
   },
@@ -34,4 +40,4 @@ const State = createSlice({
 
 export default State.reducer
 
-// export const { reset, setSearch } = State.actions
+export const { initializeList } = State.actions

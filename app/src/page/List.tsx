@@ -1,35 +1,53 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
-import { Box } from '@material-ui/core'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { Box, Typography } from '@material-ui/core'
 
 import DishCard from 'src/component/organism/DishCard'
 import Filter from 'src/component/organism/Filter'
-import { useFirestore, useHasSearchCondition } from 'src/helper'
+import { useHasSearchCondition } from 'src/helper'
 import { fetchList } from 'src/store/list'
-import { List as ListState, State } from 'Store'
+import { List as ListState, Search, State } from 'Store'
+import CenterSpinner from 'src/component/molecule/CenterSpinner'
 
 const List = () => {
-  const data = [
-    {
-      url: 'https://material-ui.com/static/images/cards/paella.jpg',
-      text: 'トマト煮込み',
-      date: '2020-11-05',
-    },
-  ]
-  for (let i = 0; i < 10; i++) {
-    data.push({ ...data[0] })
-  }
+  const dispatch = useDispatch()
+  const { list = {} as ListState, search = {} as Search } = useSelector(
+    (state: State) => state
+  )
+  const { isLoaded, result } = list
 
-  const { list = {} as ListState } = useSelector((state: State) => state)
-  useFirestore({ action: fetchList })
+  useEffect(() => {
+    dispatch(fetchList({ tag: search.tag }))
+  }, [search])
 
   const hasCondition = useHasSearchCondition()
+  const hasResult = !!result.filter(r => r.id).length
+
+  if (!isLoaded) {
+    return <CenterSpinner />
+  }
+
   return (
     <Box>
       {hasCondition && <Filter />}
-      {data.map(({ url, text, date }, i) => (
-        <DishCard url={url} text={text} date={date} key={i} />
-      ))}
+      {result
+        .filter(r => r.id)
+        .map(({ img, title, cookedDateList, id }) => (
+          <DishCard
+            img={img}
+            title={title}
+            date={cookedDateList[0]}
+            id={id || ''}
+            key={id}
+          />
+        ))}
+      {!hasResult && (
+        <Typography variant="caption">
+          料理がありません。
+          <br />
+          右上の+マークから新規料理を登録してください。
+        </Typography>
+      )}
     </Box>
   )
 }

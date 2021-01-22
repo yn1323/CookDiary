@@ -1,13 +1,31 @@
 import { useSelector } from 'react-redux'
-import { db } from 'src/constant/firebase'
-import { State, User } from 'Store'
+
+import { isProduction, APP_NAME, LS_USER_ID } from 'src/constant'
+
+import { db, DEV_COLLECTION } from 'src/constant/firebase'
+
+import { Post, State, User } from 'Store'
+import { FetchList } from 'Request'
+
 const generateFirebaseId = () => {
   return db.collection('_').doc().id
 }
 
+const getId = () => {
+  return window.localStorage.getItem(LS_USER_ID) || ''
+}
+const getCurrentPost = () => {
+  const { post = {} as Post } = useSelector((state: State) => state)
+  return post
+}
+
+export const updateLSUserId = (id: string) => {
+  window.localStorage.setItem(LS_USER_ID, id)
+}
+
 export const initializeUserId = () => {
-  const id = window.localStorage.getItem('userId') || generateFirebaseId()
-  window.localStorage.setItem('userId', id)
+  const id = isProduction ? getId() || generateFirebaseId() : DEV_COLLECTION
+  updateLSUserId(id)
   return id
 }
 
@@ -16,25 +34,47 @@ const getUserId = () => {
   return user.id
 }
 
-export const getList = async () => {
-  const colRef = db.collection('users' || getUserId()).limit(10)
-  const snapshots = await colRef.get()
-  const docs = snapshots.docs.map(doc => doc.data())
+export const getList = async (searchObj: FetchList) => {
+  // const hasCondition = !!Object.keys(searchObj).length
+  // const conditions = Object.keys(searchObj).map((key: string) => ({key, val: searchObj[key]}))
+
+  const ref = db.collection(getId()).where('deleteFlg', '==', false)
+  const snapshots = searchObj.tag
+    ? await ref.where('tag', '==', searchObj?.tag || '').get()
+    : await ref.get()
+  const docs = snapshots.docs.map(doc => ({ id: doc.id, ...doc.data() }))
   return docs
 }
 
-export const createPost = async () => {
-  return ''
+export const createPost = async (payload: Post) => {
+  const userId = getId()
+  const docId = generateFirebaseId()
+  await db
+    .collection(userId)
+    .doc(docId)
+    .set({
+      ...payload,
+      deleteFlg: false,
+      type: APP_NAME,
+    })
 }
 
-export const getPost = async () => {
-  return ''
+export const getPost = async (docId: string) => {
+  const ref = db.collection(getId()).doc(docId)
+  const snapshot = await ref.get()
+  return { ...snapshot.data(), id: snapshot.id }
 }
 
-export const updatePost = async () => {
-  return ''
+export const updatePost = async (post: Post) => {
+  const ref = db.collection(getId()).doc(post.id)
+  await ref.update({
+    ...post,
+  })
 }
 
-export const delPost = async () => {
-  return ''
+export const deletePost = async (docId: string) => {
+  const ref = db.collection(getId()).doc(docId)
+  await ref.update({
+    deleteFlg: true,
+  })
 }

@@ -38,13 +38,13 @@ export const TagList = ({ dispatch }: Props) => {
   const classes = useStyles()
   return (
     <List dense className={classes.root}>
-      {tags.map(({ label, img, index, action }) => (
+      {tags.map(({ label, img, index }) => (
         <>
           <ListItem
             key={index}
             button
             className={classes.listitem}
-            onClick={() => dispatch(action)}
+            onClick={() => dispatch(label)}
           >
             <ListItemAvatar>
               <Avatar alt={label} src={img} variant="square" />

@@ -3,6 +3,7 @@ import { lazy } from 'react'
 const ListComponent = lazy(() => import('src/page/List'))
 const DetailComponent = lazy(() => import('src/page/Detail'))
 const EditComponent = lazy(() => import('src/page/Edit'))
+const NewComponent = lazy(() => import('src/page/New'))
 const SearchComponent = lazy(() => import('src/page/Search'))
 const TagComponent = lazy(() => import('src/page/Tag'))
 const TagSelect = lazy(() => import('src/page/TagSelect'))
@@ -42,7 +43,7 @@ export const routes = [
   {
     path: '/new',
     title: '新規追加',
-    component: EditComponent,
+    component: NewComponent,
     icon: null,
     showBtmNav: false,
   },

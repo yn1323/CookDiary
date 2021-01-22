@@ -1,4 +1,5 @@
 import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { makeStyles, createStyles } from '@material-ui/core/styles'
 import { AppBar, Toolbar, IconButton } from '@material-ui/core'
@@ -14,6 +15,8 @@ import {
 } from '@material-ui/icons'
 import { useDialog, useDrawer } from 'src/helper'
 import { isProduction, useCommonStyles } from 'src/constant'
+import { Post, State } from 'Store'
+import { delPost, resetPost } from 'src/store/post'
 
 const useStyles = makeStyles(theme =>
   createStyles({
@@ -33,12 +36,14 @@ const useStyles = makeStyles(theme =>
 )
 
 const NavigationHeader = () => {
+  const dispatch = useDispatch()
   const { pathname } = useLocation()
   const isDetail = pathname.includes('/detail/')
   const classes = useStyles()
   const commonCl = useCommonStyles()
   const history = useHistory()
   const { setIsDrawerOpen } = useDrawer()
+  const { post = {} as Post } = useSelector((state: State) => state)
   // 今度使う
   // const { setIsDialogOpen, setDialogComponent } = useDialog()
 
@@ -52,7 +57,7 @@ const NavigationHeader = () => {
   }
   const deletePost = () => {
     if (window?.confirm('本当に削除しますか？')) {
-      console.log('削除しました')
+      dispatch(delPost(post.id || ''))
       history.push('/')
     }
   }
@@ -70,31 +75,11 @@ const NavigationHeader = () => {
         </IconButton>
         <div className={classes.grow} />
         <div className={classes.sectionIcon}>
-          {/*  Edit */}
-          {!isProduction && (
-            <IconButton
-              color="inherit"
-              onClick={() => history.push('/edit/test')}
-            >
-              <Edit />
-            </IconButton>
-          )}
-
-          {/*  Detail */}
-          {!isProduction && (
-            <IconButton
-              color="inherit"
-              onClick={() => history.push('/detail/test')}
-            >
-              <Details />
-            </IconButton>
-          )}
-
           {isDetail && (
             <>
               <IconButton
                 color="inherit"
-                onClick={() => history.push('/edit/test')}
+                onClick={() => history.push(`/edit/${post.id || ''}`)}
               >
                 <Edit />
               </IconButton>
@@ -110,7 +95,13 @@ const NavigationHeader = () => {
               <IconButton color="inherit" onClick={() => showSearchDialog()}>
                 <Search />
               </IconButton>
-              <IconButton color="inherit" onClick={() => history.push('/new')}>
+              <IconButton
+                color="inherit"
+                onClick={() => {
+                  dispatch(resetPost())
+                  history.push('/new')
+                }}
+              >
                 <Add />
               </IconButton>
             </>

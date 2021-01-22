@@ -18,7 +18,7 @@ declare module 'Store' {
   export interface Search {
     keyword: string
     dateRange: string
-    tag: number
+    tag: string
   }
   export interface Component {
     isDrawerOpen: boolean
@@ -34,21 +34,23 @@ declare module 'Store' {
   }
   export interface List {
     isLoaded: boolean
-    result: {
-      id: string
-      img: string
-      title: string
-      date: string
-    }[]
+    result: Post[]
   }
   export interface Post {
-    id: string
+    id?: string
     title: string
     tag: string
-    date: string
-    image: string
-    ingredient: string
-    step: string
-    tip: string
+    cookedDateList: string[]
+    img: string
+    ingredients: string
+    steps: string
+    tips: string
+  }
+}
+
+declare module 'Request' {
+  export interface FetchList {
+    [key: string]: any
+    tag?: string
   }
 }
