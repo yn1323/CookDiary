@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Box } from '@material-ui/core'
+import { Box, Typography } from '@material-ui/core'
 
 import DishCard from 'src/component/organism/DishCard'
 import Filter from 'src/component/organism/Filter'
@@ -42,11 +42,11 @@ const List = () => {
           />
         ))}
       {!hasResult && (
-        <div>
-          料理が未登録です。
+        <Typography variant="caption">
+          料理がありません。
           <br />
           右上の+マークから新規料理を登録してください。
-        </div>
+        </Typography>
       )}
     </Box>
   )

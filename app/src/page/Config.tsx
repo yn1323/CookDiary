@@ -6,6 +6,7 @@ import {
   Grid,
   TextFieldProps,
   makeStyles,
+  Typography,
 } from '@material-ui/core'
 import { Edit, Person, Save } from '@material-ui/icons'
 import { updateUserId } from 'src/store/user'
@@ -68,6 +69,13 @@ const Config = () => {
           </Button>
         </Grid>
       )}
+      <Grid item xs={12}>
+        <Typography variant="caption">
+          ※複数端末間で利用する場合、ユーザーIDを同じにすることでデータ共有が可能です。
+          <br />
+          ※ユーザーID変更前のデータの引き継ぎはできません。
+        </Typography>
+      </Grid>
     </Grid>
   )
 }
