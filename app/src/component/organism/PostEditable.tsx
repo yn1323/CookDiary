@@ -19,7 +19,6 @@ import {
   useImage,
   createImage,
 } from 'src/helper'
-import { currentDate } from 'src/constant'
 import { useHistory } from 'react-router-dom'
 import { Post } from 'Store'
 import SimpleSpinner from '../atom/Spinner'
@@ -33,6 +32,12 @@ const useStyles = makeStyles({
   tagButton: {
     color: '#eee',
   },
+  registerButton: {
+    color: '#eee',
+    height: 40,
+    marginBottom: 30,
+    fontSize: 20,
+  },
 })
 
 const PostEditable = () => {
@@ -41,7 +46,7 @@ const PostEditable = () => {
   const spacing = 3
   const { setIsDialogOpen, setDialogComponent } = useDialog()
   const { post, updatePost } = usePost()
-  const { isImgUploading, initializeImgUploading } = useImgUploading()
+  const { initializeImgUploading } = useImgUploading()
   const { imageUrl } = useImage(post.id || '')
 
   const [currentPost, setCurrentPost] = useState(post)
@@ -162,7 +167,7 @@ const PostEditable = () => {
       </Grid>
       <Grid item xs={12}>
         <Button
-          className={classes.tagButton}
+          className={classes.registerButton}
           fullWidth
           variant="contained"
           color="secondary"
