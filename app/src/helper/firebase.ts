@@ -31,17 +31,17 @@ export const getList = async (searchObj: FetchList) => {
 
   const ref = db.collection(getId()).where('deleteFlg', '==', false)
   const snapshots = searchObj.tag
-    ? await ref
-        .where('tag', '==', searchObj?.tag || '')
-        .orderBy('date', 'desc')
-        .get()
-    : await ref.orderBy('date', 'desc').get()
+    ? await ref.where('tag', '==', searchObj?.tag || '').get()
+    : await ref.get()
   const docs = snapshots.docs.map(doc => ({
     id: doc.id,
     ...doc.data(),
-    date: moment(doc.data().date?.toDate() || '').format('YYYY/M/D'),
+    date: moment(doc.data().date?.toDate()).format('YYYY/M/D'),
   }))
-  return docs
+  const newarr = docs.sort((a, b) => {
+    return moment(b.date).diff(a.date)
+  })
+  return newarr
 }
 
 export const createPost = async (post: Post) => {
