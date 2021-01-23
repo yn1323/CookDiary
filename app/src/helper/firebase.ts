@@ -89,10 +89,14 @@ export const getImage = async () => {
   const ret: any = {}
   await Promise.all(
     result.items.map(async imgRef => {
-      const id = imgRef.name.replace('_400x400', '')
-      const url = await getImageUrl(imgRef)
-      ret[id] = url
-      return { [id]: url }
+      // 画像追加、削除後のエラーを予防
+      try {
+        const id = imgRef.name.replace('_400x400', '')
+        const url = await getImageUrl(imgRef)
+        ret[id] = url
+      } catch (e) {
+        console.warn(e)
+      }
     })
   )
   return ret
