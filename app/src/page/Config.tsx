@@ -51,6 +51,7 @@ const Config = () => {
         <IconButton
           color="secondary"
           onClick={() => setDisableUserId(!disableUserId)}
+          disabled={!disableUserId}
         >
           <Edit />
         </IconButton>
