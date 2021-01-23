@@ -41,6 +41,9 @@ const styles: any = {
   width100: {
     width: '100%',
   },
+  height100: {
+    height: '100%',
+  },
 }
 
 const custom: any = {

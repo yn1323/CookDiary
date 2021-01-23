@@ -10,17 +10,8 @@ import { List, State } from 'Store'
 
 import { fetchPost, setPost } from 'src/store/post'
 import { usePost } from 'src/helper'
+import { fetchImageList } from 'src/store/image'
 
-const useStyles = makeStyles({
-  dateWrapper: {
-    height: '100%',
-    display: 'flex',
-    alignItems: 'center',
-  },
-  tagButton: {
-    color: '#eee',
-  },
-})
 const Detail = () => {
   const dispatch = useDispatch()
   const { id }: any = useParams()
@@ -32,6 +23,7 @@ const Detail = () => {
     if (targetPost) {
       dispatch(setPost(targetPost))
     } else {
+      dispatch(fetchImageList())
       dispatch(fetchPost(id))
     }
   }, [])

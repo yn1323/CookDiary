@@ -9,7 +9,6 @@ export const defaultVal: StateType = {
   title: '',
   tag: '',
   cookedDateList: [],
-  img: '',
   ingredients: '',
   steps: '',
   tips: '',

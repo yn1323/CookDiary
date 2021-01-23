@@ -8,6 +8,7 @@ import component from 'src/store/component'
 import post from 'src/store/post'
 import user from 'src/store/user'
 import list from 'src/store/list'
+import image from 'src/store/image'
 
 const reducer = combineReducers({
   search,
@@ -15,6 +16,7 @@ const reducer = combineReducers({
   post,
   user,
   list,
+  image,
 })
 
 // getDefaultMiddleware: serializeエラーがスマホで発生するため

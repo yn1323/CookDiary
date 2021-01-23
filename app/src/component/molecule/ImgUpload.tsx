@@ -6,7 +6,8 @@ import { useCommonStyles } from 'src/constant'
 import { createImage, useImgUploading, usePost } from 'src/helper'
 
 interface Props {
-  imgPath: string
+  imgUrl: string
+  tempImageSetter: any
 }
 
 const useStyles = makeStyles({
@@ -34,33 +35,32 @@ const useStyles = makeStyles({
   },
 })
 
-export const ImgUpload = ({ imgPath }: Props) => {
+export const ImgUpload = ({ imgUrl, tempImageSetter }: Props) => {
   const classes = useStyles()
   const commonCl = useCommonStyles()
 
-  const [tempImage, setTempImage]: any = useState(null)
+  const [tempImage, setTempImage]: any = useState(imgUrl)
+
   const {
     isImgUploading,
     startImgUploading,
     endImgUploading,
   } = useImgUploading()
-  const { post, setPost } = usePost()
 
   useEffect(() => {
-    setTempImage(post.img)
-  }, [post])
+    setTempImage(imgUrl)
+  }, [imgUrl])
 
   const handleUploadClick = async (event: any) => {
-    startImgUploading()
     const reader = new FileReader()
     reader.onload = _ => {
       setTempImage(reader.result)
     }
     if (event.target.files[0]) {
       reader.readAsDataURL(event.target.files[0])
-      const imgUrl = await createImage(event.target.files[0], imgPath)
-      setPost({ img: imgUrl })
-      endImgUploading()
+      tempImageSetter(event.target.files[0])
+      // const imgUrl = await createImage(event.target.files[0], imgPath)
+      // endImgUploading()
     }
   }
   return (

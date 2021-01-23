@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Button, Grid, makeStyles, TextFieldProps } from '@material-ui/core'
+
 import { RestaurantMenu } from '@material-ui/icons'
 
 import CurrentDate from 'src/component/atom/CurrentDate'
@@ -15,10 +16,13 @@ import {
   generateFirebaseId,
   getId,
   useImgUploading,
+  useImage,
+  createImage,
 } from 'src/helper'
 import { currentDate } from 'src/constant'
 import { useHistory } from 'react-router-dom'
 import { Post } from 'Store'
+import SimpleSpinner from '../atom/Spinner'
 
 const useStyles = makeStyles({
   dateWrapper: {
@@ -38,9 +42,13 @@ const PostEditable = () => {
   const { setIsDialogOpen, setDialogComponent } = useDialog()
   const { post, updatePost } = usePost()
   const { isImgUploading, initializeImgUploading } = useImgUploading()
+  const { imageUrl } = useImage(post.id || '')
 
   const [currentPost, setCurrentPost] = useState(post)
   const [fbuid, _] = useState(generateFirebaseId())
+  const [tmpImage, setTmpImage] = useState(null)
+  const [imageUploading, setImageUploading] = useState(false)
+
   const imgPath = `/${getId()}/${currentPost.id || fbuid}`
 
   useEffect(() => {
@@ -56,13 +64,13 @@ const PostEditable = () => {
   const step: any = useRef<TextFieldProps>(null)
   const tip: any = useRef<TextFieldProps>(null)
 
-  const hasValidateValue = (payload: any) => {
+  const hasValidateValue = (payload: any, hasImage: any) => {
     let errMsg = ''
     if (!payload.title) {
       errMsg += '料理名が未入力です。\n'
     }
-    if (!payload.img) {
-      errMsg += '画像がありません。\n'
+    if (!hasImage) {
+      errMsg += '写真が選択されていません。\n'
     }
     setDialogComponent({
       title: 'エラー',
@@ -71,21 +79,22 @@ const PostEditable = () => {
     return !!errMsg
   }
 
-  const register = () => {
+  const register = async () => {
     const payload: Post = {
       id: currentPost.id || fbuid,
       title: title?.current?.value || '',
       tag: currentPost.tag || 'etc',
       cookedDateList: [currentDate],
-      img: post.img,
       ingredients: ingredient.current?.value || '',
       steps: step.current?.value || '',
       tips: tip.current?.value || '',
     }
-    if (hasValidateValue(payload)) {
+    if (hasValidateValue(payload, imageUrl || tmpImage)) {
       setIsDialogOpen(true)
       return
     }
+    setImageUploading(true)
+    await createImage(tmpImage, imgPath)
 
     if (currentPost.id) {
       updatePost(payload)
@@ -120,7 +129,10 @@ const PostEditable = () => {
       </Grid>
       <Grid item xs={12}>
         {/* 画像アップロード */}
-        <ImgUpload imgPath={imgPath} />
+        <ImgUpload
+          imgUrl={imageUrl}
+          tempImageSetter={(file: any) => setTmpImage(file)}
+        />
       </Grid>
       <Grid item xs={12}>
         {/* 材料 */}
@@ -153,9 +165,9 @@ const PostEditable = () => {
           variant="contained"
           color="secondary"
           onClick={() => register()}
-          disabled={isImgUploading}
+          disabled={imageUploading}
         >
-          登録
+          {imageUploading ? <SimpleSpinner /> : <span>登録</span>}
         </Button>
       </Grid>
     </Grid>

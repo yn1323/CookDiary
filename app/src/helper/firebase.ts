@@ -10,7 +10,8 @@ export const generateFirebaseId = () => {
 }
 
 export const getId = () => {
-  return window.localStorage.getItem(LS_USER_ID) || ''
+  const returnId = window.localStorage.getItem(LS_USER_ID) || ''
+  return returnId
 }
 
 export const updateLSUserId = (id: string) => {
@@ -37,6 +38,8 @@ export const getList = async (searchObj: FetchList) => {
 
 export const createPost = async (post: Post) => {
   const userId = getId()
+  console.log(userId)
+  console.log({ ...post })
   await db
     .collection(userId)
     .doc(post.id)
@@ -76,17 +79,19 @@ export const createImage = async (file: any, path: string) => {
 }
 
 export const deleteImage = async (path: string) => {
-  const deleteRef = storage.ref(path)
+  const deleteRef = storage.ref(`${path}_400x400`)
   deleteRef.delete()
 }
 
 export const getImage = async () => {
   const storageRef = storage.ref(getId())
   const result = await storageRef.listAll()
-  const ret = await Promise.all(
+  const ret: any = {}
+  await Promise.all(
     result.items.map(async imgRef => {
       const id = imgRef.name.replace('_400x400', '')
       const url = await getImageUrl(imgRef)
+      ret[id] = url
       return { [id]: url }
     })
   )

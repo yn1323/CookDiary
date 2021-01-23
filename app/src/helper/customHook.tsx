@@ -9,6 +9,7 @@ import {
   State,
   Search as SearchType,
   Post,
+  Image,
 } from 'Store'
 
 import {
@@ -145,5 +146,14 @@ export const useImgUploading = () => {
     initializeImgUploading: end,
     startImgUploading: start,
     endImgUploading: end,
+  }
+}
+
+export const useImage = (postId: string) => {
+  const { image = {} as Image } = useSelector((state: State) => state)
+
+  return {
+    imageUrl: image.isLoaded ? image.result[postId] : '',
+    imageIsLoaded: image.isLoaded,
   }
 }
