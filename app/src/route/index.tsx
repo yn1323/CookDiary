@@ -1,13 +1,16 @@
 import React, { lazy } from 'react'
 import { Route, Switch } from 'react-router-dom'
 
-const Top = lazy(() => import('src/page/Top'))
+import { routes } from 'src/constant'
+
 const NotFound = lazy(() => import('src/page/404'))
 
-export default () => {
+const Router = () => {
   return (
     <Switch>
-      <Route exact path="/" component={Top} />
+      {routes.map(({ component, path }) => (
+        <Route key={path} exact path={path} component={component} />
+      ))}
 
       {/* {process.env.NODE_ENV === 'development' && (
         <Route exact path="/gallery" component={Gallery} />
@@ -16,3 +19,5 @@ export default () => {
     </Switch>
   )
 }
+
+export default Router

@@ -3,10 +3,20 @@ import { configureStore } from '@reduxjs/toolkit'
 import logger from 'redux-logger'
 
 import { isProduction } from 'src/constant'
-import sample from 'src/store/sample'
+import search from 'src/store/search'
+import component from 'src/store/component'
+import post from 'src/store/post'
+import user from 'src/store/user'
+import list from 'src/store/list'
+import image from 'src/store/image'
 
 const reducer = combineReducers({
-  sample,
+  search,
+  component,
+  post,
+  user,
+  list,
+  image,
 })
 
 // getDefaultMiddleware: serializeエラーがスマホで発生するため
@@ -21,6 +31,3 @@ const store = configureStore({
 })
 
 export default store
-
-// typeで使用
-export * from 'src/store/sample'
