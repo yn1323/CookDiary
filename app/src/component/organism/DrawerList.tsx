@@ -54,7 +54,6 @@ const DrawerList = () => {
   return (
     <List>
       {renderList(list1)}
-      <Divider />
       {renderList(list2)}
     </List>
   )
