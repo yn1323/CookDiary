@@ -48,7 +48,7 @@ declare module 'Store' {
     id?: string
     title: string
     tag: string
-    cookedDateList: string[]
+    date: string
     ingredients: string
     steps: string
     tips: string

@@ -1,3 +1,4 @@
+import moment from 'moment-timezone'
 import { isProduction, APP_NAME, LS_USER_ID } from 'src/constant'
 
 import { db, storage, DEV_COLLECTION } from 'src/constant/firebase'
@@ -30,9 +31,16 @@ export const getList = async (searchObj: FetchList) => {
 
   const ref = db.collection(getId()).where('deleteFlg', '==', false)
   const snapshots = searchObj.tag
-    ? await ref.where('tag', '==', searchObj?.tag || '').get()
-    : await ref.get()
-  const docs = snapshots.docs.map(doc => ({ id: doc.id, ...doc.data() }))
+    ? await ref
+        .where('tag', '==', searchObj?.tag || '')
+        .orderBy('date', 'desc')
+        .get()
+    : await ref.orderBy('date', 'desc').get()
+  const docs = snapshots.docs.map(doc => ({
+    id: doc.id,
+    ...doc.data(),
+    date: moment(doc.data().date?.toDate() || '').format('YYYY/M/D'),
+  }))
   return docs
 }
 
@@ -45,6 +53,7 @@ export const createPost = async (post: Post) => {
     .doc(post.id)
     .set({
       ...post,
+      date: new Date(),
       deleteFlg: false,
       type: APP_NAME,
     })
@@ -53,13 +62,18 @@ export const createPost = async (post: Post) => {
 export const getPost = async (docId: string) => {
   const ref = db.collection(getId()).doc(docId)
   const snapshot = await ref.get()
-  return { ...snapshot.data(), id: snapshot.id }
+  return {
+    ...snapshot.data(),
+    id: snapshot.id,
+    date: moment(snapshot.data()?.date?.toDate() || '').format('YYYY/M/D'),
+  }
 }
 
 export const updatePost = async (post: Post) => {
   const ref = db.collection(getId()).doc(post.id)
   await ref.update({
     ...post,
+    date: new Date(),
   })
 }
 

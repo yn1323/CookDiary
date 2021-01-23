@@ -37,13 +37,8 @@ const List = () => {
       {hasCondition && <Filter />}
       {result
         .filter(r => r.id)
-        .map(({ title, cookedDateList, id }) => (
-          <DishCard
-            title={title}
-            date={cookedDateList[0]}
-            id={id || ''}
-            key={id}
-          />
+        .map(({ title, date, id }) => (
+          <DishCard title={title} date={date} id={id || ''} key={id} />
         ))}
       {!hasResult && (
         <Typography variant="caption">

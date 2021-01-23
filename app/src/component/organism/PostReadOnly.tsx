@@ -23,7 +23,7 @@ const useStyles = makeStyles({
 
 export const PostReadOnly = () => {
   const { post } = usePost()
-  const { id, title, tag, cookedDateList, ingredients, steps, tips } = post
+  const { id, title, tag, date, ingredients, steps, tips } = post
   const { imageUrl } = useImage(id || '')
 
   const classes = useStyles()
@@ -42,7 +42,7 @@ export const PostReadOnly = () => {
         <Grid item>
           <div className={classes.dateWrapper}>
             {/* 日付 */}
-            <Date displayDate={cookedDateList[0]} />
+            <Date displayDate={date} />
           </div>
         </Grid>
       </Grid>

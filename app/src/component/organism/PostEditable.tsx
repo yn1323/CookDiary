@@ -84,7 +84,7 @@ const PostEditable = () => {
       id: currentPost.id || fbuid,
       title: title?.current?.value || '',
       tag: currentPost.tag || 'etc',
-      cookedDateList: [currentDate],
+      date: '',
       ingredients: ingredient.current?.value || '',
       steps: step.current?.value || '',
       tips: tip.current?.value || '',
@@ -94,7 +94,9 @@ const PostEditable = () => {
       return
     }
     setImageUploading(true)
-    await createImage(tmpImage, imgPath)
+    if (tmpImage) {
+      await createImage(tmpImage, imgPath)
+    }
 
     if (currentPost.id) {
       updatePost(payload)
