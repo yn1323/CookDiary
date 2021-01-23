@@ -61,7 +61,6 @@ export const updatePost = async (post: Post) => {
 }
 
 export const deletePost = async (docId: string) => {
-  const uid = getId()
   const ref = db.collection(getId()).doc(docId)
   await ref.update({
     deleteFlg: true,
@@ -70,13 +69,8 @@ export const deletePost = async (docId: string) => {
 }
 
 export const createImage = async (file: any, path: string) => {
-  const metadata = {
-    customMetadata: {
-      optimized: 'false',
-    },
-  }
   const storageRef = storage.ref(path)
-  const uploadTaskSnapshot = await storageRef.put(file, metadata)
+  const uploadTaskSnapshot = await storageRef.put(file)
   const downloadURL = await uploadTaskSnapshot.ref.getDownloadURL()
   return downloadURL
 }
@@ -84,4 +78,21 @@ export const createImage = async (file: any, path: string) => {
 export const deleteImage = async (path: string) => {
   const deleteRef = storage.ref(path)
   deleteRef.delete()
+}
+
+export const getImage = async () => {
+  const storageRef = storage.ref(getId())
+  const result = await storageRef.listAll()
+  const ret = await Promise.all(
+    result.items.map(async imgRef => {
+      const id = imgRef.name.replace('_400x400', '')
+      const url = await getImageUrl(imgRef)
+      return { [id]: url }
+    })
+  )
+  return ret
+}
+
+const getImageUrl = async (imgRef: any) => {
+  return await imgRef.getDownloadURL()
 }
