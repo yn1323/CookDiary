@@ -1,22 +1,17 @@
-import { useSelector } from 'react-redux'
-
 import { isProduction, APP_NAME, LS_USER_ID } from 'src/constant'
 
-import { db, DEV_COLLECTION } from 'src/constant/firebase'
+import { db, storage, DEV_COLLECTION } from 'src/constant/firebase'
 
 import { Post, State, User } from 'Store'
 import { FetchList } from 'Request'
 
-const generateFirebaseId = () => {
+export const generateFirebaseId = () => {
   return db.collection('_').doc().id
 }
 
-const getId = () => {
-  return window.localStorage.getItem(LS_USER_ID) || ''
-}
-const getCurrentPost = () => {
-  const { post = {} as Post } = useSelector((state: State) => state)
-  return post
+export const getId = () => {
+  const returnId = window.localStorage.getItem(LS_USER_ID) || ''
+  return returnId
 }
 
 export const updateLSUserId = (id: string) => {
@@ -27,11 +22,6 @@ export const initializeUserId = () => {
   const id = isProduction ? getId() || generateFirebaseId() : DEV_COLLECTION
   updateLSUserId(id)
   return id
-}
-
-const getUserId = () => {
-  const { user = {} as User } = useSelector((state: State) => state)
-  return user.id
 }
 
 export const getList = async (searchObj: FetchList) => {
@@ -46,14 +36,15 @@ export const getList = async (searchObj: FetchList) => {
   return docs
 }
 
-export const createPost = async (payload: Post) => {
+export const createPost = async (post: Post) => {
   const userId = getId()
-  const docId = generateFirebaseId()
+  console.log(userId)
+  console.log({ ...post })
   await db
     .collection(userId)
-    .doc(docId)
+    .doc(post.id)
     .set({
-      ...payload,
+      ...post,
       deleteFlg: false,
       type: APP_NAME,
     })
@@ -77,4 +68,40 @@ export const deletePost = async (docId: string) => {
   await ref.update({
     deleteFlg: true,
   })
+  await deleteImage(`${getId()}/${docId}`)
+}
+
+export const createImage = async (file: any, path: string) => {
+  const storageRef = storage.ref(path)
+  const uploadTaskSnapshot = await storageRef.put(file)
+  const downloadURL = await uploadTaskSnapshot.ref.getDownloadURL()
+  return downloadURL
+}
+
+export const deleteImage = async (path: string) => {
+  const deleteRef = storage.ref(`${path}_400x400`)
+  deleteRef.delete()
+}
+
+export const getImage = async () => {
+  const storageRef = storage.ref(getId())
+  const result = await storageRef.listAll()
+  const ret: any = {}
+  await Promise.all(
+    result.items.map(async imgRef => {
+      // 画像追加、削除後のエラーを予防
+      try {
+        const id = imgRef.name.replace('_400x400', '')
+        const url = await getImageUrl(imgRef)
+        ret[id] = url
+      } catch (e) {
+        console.warn(e)
+      }
+    })
+  )
+  return ret
+}
+
+const getImageUrl = async (imgRef: any) => {
+  return await imgRef.getDownloadURL()
 }

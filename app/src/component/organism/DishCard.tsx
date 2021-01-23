@@ -12,10 +12,11 @@ import {
 import Typography from '@material-ui/core/Typography'
 import { Favorite, Restaurant } from '@material-ui/icons'
 import { useCommonStyles } from 'src/constant'
+import { useImage } from 'src/helper'
+import SimpleSpinner from '../atom/Spinner'
 
 interface Props {
   id: string
-  img: string
   title: string
   date: string
 }
@@ -42,10 +43,12 @@ const useStyles = makeStyles(() =>
   })
 )
 
-export const DishCard = ({ id, img, title, date }: Props) => {
+export const DishCard = ({ id, title, date }: Props) => {
   const history = useHistory()
   const classes = useStyles()
   const commonCl = useCommonStyles()
+  const { imageUrl } = useImage(id || '')
+  const hasImageUrl = !!imageUrl
 
   return (
     <Card
@@ -54,7 +57,17 @@ export const DishCard = ({ id, img, title, date }: Props) => {
     >
       <Grid container direction="row">
         <Grid item xs={4}>
-          <CardMedia className={classes.media} image={img} title="title" />
+          {hasImageUrl ? (
+            <CardMedia
+              className={classes.media}
+              image={imageUrl}
+              title={title}
+            />
+          ) : (
+            <div className={`${commonCl.centerVH} ${commonCl.height100}`}>
+              <SimpleSpinner />
+            </div>
+          )}
         </Grid>
         <Grid item xs={8}>
           <CardContent>

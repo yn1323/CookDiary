@@ -14,6 +14,7 @@ declare module 'Store' {
     user: User
     post: Post
     list: List
+    image: Image
   }
   export interface Search {
     keyword: string
@@ -24,6 +25,7 @@ declare module 'Store' {
     isDrawerOpen: boolean
     isDialogOpen: boolean
     dialog: Dialog
+    isImgUploading: boolean
   }
   export interface User {
     id: string
@@ -36,12 +38,17 @@ declare module 'Store' {
     isLoaded: boolean
     result: Post[]
   }
+  export interface Image {
+    isLoaded: boolean
+    result: {
+      [key: string]: string
+    }
+  }
   export interface Post {
     id?: string
     title: string
     tag: string
     cookedDateList: string[]
-    img: string
     ingredients: string
     steps: string
     tips: string

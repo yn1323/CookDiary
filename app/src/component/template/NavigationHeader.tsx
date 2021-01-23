@@ -55,9 +55,9 @@ const NavigationHeader = () => {
     // })
     // setIsDialogOpen(true)
   }
-  const deletePost = () => {
+  const deletePost = async () => {
     if (window?.confirm('本当に削除しますか？')) {
-      dispatch(delPost(post.id || ''))
+      await dispatch(delPost(post.id || ''))
       history.push('/')
     }
   }

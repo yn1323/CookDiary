@@ -4,10 +4,14 @@ import { Box, Typography } from '@material-ui/core'
 
 import DishCard from 'src/component/organism/DishCard'
 import Filter from 'src/component/organism/Filter'
-import { useHasSearchCondition } from 'src/helper'
-import { fetchList } from 'src/store/list'
-import { List as ListState, Search, State } from 'Store'
 import CenterSpinner from 'src/component/molecule/CenterSpinner'
+
+import { useHasSearchCondition } from 'src/helper'
+
+import { fetchList } from 'src/store/list'
+import { fetchImageList } from 'src/store/image'
+
+import { List as ListState, Search, State } from 'Store'
 
 const List = () => {
   const dispatch = useDispatch()
@@ -18,6 +22,7 @@ const List = () => {
 
   useEffect(() => {
     dispatch(fetchList({ tag: search.tag }))
+    dispatch(fetchImageList())
   }, [search])
 
   const hasCondition = useHasSearchCondition()
@@ -32,9 +37,8 @@ const List = () => {
       {hasCondition && <Filter />}
       {result
         .filter(r => r.id)
-        .map(({ img, title, cookedDateList, id }) => (
+        .map(({ title, cookedDateList, id }) => (
           <DishCard
-            img={img}
             title={title}
             date={cookedDateList[0]}
             id={id || ''}

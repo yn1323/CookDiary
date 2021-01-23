@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Grid, makeStyles } from '@material-ui/core'
 
 import Date from 'src/component/atom/Date'
@@ -8,7 +8,7 @@ import PostImage from 'src/component/molecule/PostImage'
 import PostTitle from 'src/component/atom/PostTitle'
 import CenterSpinner from 'src/component/molecule/CenterSpinner'
 
-import { usePost } from 'src/helper'
+import { useImage, usePost } from 'src/helper'
 
 const useStyles = makeStyles({
   dateWrapper: {
@@ -20,9 +20,11 @@ const useStyles = makeStyles({
     color: '#eee',
   },
 })
+
 export const PostReadOnly = () => {
   const { post } = usePost()
-  const { title, tag, cookedDateList, ingredients, steps, tips, img } = post
+  const { id, title, tag, cookedDateList, ingredients, steps, tips } = post
+  const { imageUrl } = useImage(id || '')
 
   const classes = useStyles()
   const spacing = 3
@@ -46,9 +48,7 @@ export const PostReadOnly = () => {
       </Grid>
       <Grid item xs={12}>
         {/* 画像 */}
-        <PostImage
-          url={'https://material-ui.com/static/images/cards/paella.jpg'}
-        />
+        <PostImage url={imageUrl} />
       </Grid>
       {ingredients && (
         <Grid item xs={12}>
