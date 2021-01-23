@@ -38,6 +38,9 @@ const IconTextbox = ({
           defaultValue={defaultValue}
           className={classes.textField}
           disabled={disabled}
+          inputProps={{
+            maxLength: 30,
+          }}
         />
       </Grid>
     </Grid>

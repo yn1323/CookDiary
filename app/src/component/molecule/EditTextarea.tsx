@@ -29,6 +29,9 @@ const EditTextarea = ({
           placeholder={placeholder}
           variant="outlined"
           className={common.width100}
+          inputProps={{
+            maxLength: 1000,
+          }}
         />
       </Grid>
     </>
