@@ -102,7 +102,7 @@ npm run keycheck <Password>
 
 ### Every release
 
-### Create Release apk
+### Create apk
 ```
 npm run release--android <Alias>
 npm run release--ios <Alias>
