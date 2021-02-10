@@ -18,11 +18,20 @@
   "author": "ynatani",
   "license": "MIT",
   "devDependencies": {
-    "cordova-plugin-whitelist": "^1.3.4"
+    "cordova-admob-sdk": "^0.24.1",
+    "cordova-android": "^9.0.0",
+    "cordova-plugin-whitelist": "^1.3.4",
+    "cordova-plugin-admob-free": "0.27.0"
   },
   "cordova": {
     "plugins": {
-      "cordova-plugin-whitelist": {}
+      "cordova-plugin-whitelist": {},
+      "cordova-admob-sdk": {
+        "PLAY_SERVICES_VERSION": "11.0.4"
+      },
+      "cordova-plugin-admob-free": {
+        "ADMOB_APP_ID": "ca-app-pub-6362026991302319~7256199956"
+      }
     },
     "platforms": [
       "ios",
@@ -30,7 +39,8 @@
     ]
   },
   "dependencies": {
-    "cordova-android": "9.0.0",
-    "cordova-ios": "6.1.1"
+    "cordova-android": "^9.0.0",
+    "cordova-ios": "6.1.1",
+    "cordova-promise-polyfill": "0.0.2"
   }
 }

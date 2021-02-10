@@ -7,6 +7,10 @@ node_modules/
 /plugins/
 /platforms/
 
+/.idea/
+
 # Genereted after release build
 .keystore
 www
+
+/apk/*.apk

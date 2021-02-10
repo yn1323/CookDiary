@@ -108,13 +108,6 @@ npm run release--android <Alias>
 npm run release--ios <Alias>
 ```
 
-### Create release apk
-1. Copy zipalign from ~/Library/Android/sdk/build-tools/xxx to project folder
-2. Execute below
-```
-./zipalign ./zipalign -f -v 4 apk/android_signed.apk apk/android_release.apk
-```
-
 ### Path to APK
 - apk
 

@@ -8,8 +8,9 @@ import registerServiceWorker from 'src/reagisterServiceWorker'
 import 'src/asset/scss/index.scss'
 import createHashHistory from 'history/createHashHistory'
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core'
+import { initAd } from './helper'
 
-const run = () => {
+const run = (isEmulator = true) => {
   const history = createHashHistory()
   const theme = createMuiTheme({
     palette: {
@@ -42,11 +43,14 @@ const run = () => {
     document.getElementById('root')
   )
   registerServiceWorker()
+  if (isEmulator) {
+    initAd()
+  }
 }
 
 // eslint-disable-next-line no-prototype-builtins
 if (window.hasOwnProperty('cordova')) {
-  document.addEventListener('deviceready', run, false)
+  document.addEventListener('deviceready', () => run(true), false)
 } else {
-  run()
+  run(false)
 }
