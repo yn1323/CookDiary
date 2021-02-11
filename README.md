@@ -97,12 +97,14 @@ npm run createkey <Alias>
 
 #### Check Key(when forgot alias)
 ```
-npm run keycheck <Password>
+npm run checkkey <Password>
 ```
 
 ### Every release
 
 ### Create apk
+1. Update config.xml widget #version
+2. build command
 ```
 npm run release--android <Alias>
 npm run release--ios <Alias>
