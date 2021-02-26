@@ -1,7 +1,7 @@
 import moment from 'moment-timezone'
 import { isProduction, APP_NAME, LS_USER_ID } from 'src/constant'
 
-import { db, storage, DEV_COLLECTION } from 'src/constant/firebase'
+import { auth, db, storage, DEV_COLLECTION } from 'src/constant/firebase'
 
 import { Post, State, User } from 'Store'
 import { FetchList } from 'Request'
@@ -23,6 +23,18 @@ export const initializeUserId = () => {
   const id = isProduction ? getId() || generateFirebaseId() : DEV_COLLECTION
   updateLSUserId(id)
   return id
+}
+
+export const signIn = ({ successed, failed }: any) => {
+  auth
+    .signInAnonymously()
+    .then(() => {
+      successed()
+    })
+    .catch(error => {
+      console.log(error)
+      failed()
+    })
 }
 
 export const getList = async (searchObj: FetchList) => {

@@ -11,5 +11,6 @@ const firebaseConfig = {
 }
 export const fb = firebase.initializeApp(firebaseConfig)
 export const db = fb.firestore()
+export const auth = fb.auth()
 export const storage = fb.storage()
 export const DEV_COLLECTION = 'yn1323test'
