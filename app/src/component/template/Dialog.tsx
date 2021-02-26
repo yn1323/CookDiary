@@ -10,6 +10,7 @@ const DialogTemplate = () => {
       open={isDialogOpen}
       keepMounted
       onClose={() => setIsDialogOpen(false)}
+      fullWidth
     >
       {title && <DialogTitle>{title}</DialogTitle>}
       {title && <Divider />}
